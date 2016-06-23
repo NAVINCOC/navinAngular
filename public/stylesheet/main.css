@@ -1,0 +1,56 @@
+.height25 {
+  height: 25px;
+}
+
+.bottom0 {
+  bottom: 0px;
+}
+
+.pFixed {
+  position: fixed;
+}
+
+.bColorYellow {
+  background-color: #FF0;
+}
+
+.tColorBlack {
+  color: #000;
+}
+
+.tAlignCenter {
+  text-align: center;
+}
+
+.maxWidth {
+  width: 100%;
+}
+
+.width75p {
+  width: 75%;
+}
+
+.mLeft25p {
+  margin-left: 25%;
+}
+
+.small-1 {
+  width: 5%;
+}
+
+.small-2 {
+  width: 10%;
+}
+
+.small-3 {
+  width: 15%;
+}
+
+.small-4 {
+  width: 20%;
+}
+
+.large-2 input {
+  width: 25%;
+}
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/min/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/min/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="/min/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="min/css/ngCropper.all.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/customStyle.css" />
+    <link rel="icon" href="logo.jpg" />
+    <title>Wellcome</title>
+  </head>
+  <body ng-app="dashboard">
+    <header ng-controller="appHeader"id="header" class="header" ng-click="change();">{{header}}</header>
+    <aside ng-controller="appLeftbar" id="leftBar" class="leftBar"><i class="fa fa-anchor"></i>Manage User</aside>
+    <div ng-controller="appBody" id="body" class="body">
+        <i class="fa fa-hand-o-up"></i>this
+    </div>
+    <footer id="footer" class="footer">Loading...</footer>
+    <script type="text/javascript" src="/min/js/app.min.js"></script>
+    <!-- *app.min.js contains all these files -->
+    <!-- 
+    <script src="/min/js/jQuery.min.js"></script>
+    <script src="/min/js/angular.min.js"></script>
+    -->
+    <script type="text/javascript" src="/min/js/angular-ui-router.min.js"></script>
+    <!-- to drag and drop row in ng-repeat check README for more -->
+    <script type="text/javascript" src="/min/js/angular-ui-sortable.min.js"></script>
+    <!-- to drag and drop row in ng-repeat -->
+    <script type="text/javascript" src="min/js/angular-sortable-view.min.js"></script>
+    <!-- to crop image -->
+    <script type="text/javascript" src="min/js/ngCropper.all.min.js"></script>
+    <!-- to autocomplete text like google options for searching -->
+    <script type="text/javascript" src="min/js/autocomplete.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/appHeader.js"></script>
+    <script type="text/javascript" src="js/appLeftbar.js"></script>
+    <script type="text/javascript" src="js/appBody.js"></script>
+    <!-- <script type="text/babel" src="/js/header.js"></script>
+    <script type="text/babel" src="/js/leftBar.js"></script>
+    <script type="text/babel" src="/js/footer.js"></script>
+     -->
+  </body>
+</html>
