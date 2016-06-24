@@ -4,34 +4,31 @@ app.controller('appBody', [
   '$scope',
   '$rootScope',
   ($scope, $rootScope) => {
-    console.log('$scope', $scope);
-    console.log('$rootScope', $rootScope);
-
-    let headers = {
-      key: 'absinth',
-      access: 'onlycoc',
-      'x-requested-with': 'XMLHttpRequest',
-      accept: '*/*',
-      'content-type': 'application/json; charset=UTF-8'
-    };
+    $scope.click = () => {
+      let headers = {
+        key: 'absinth',
+        access: 'onlycoc',
+        'x-requested-with': 'XMLHttpRequest',
+        accept: '*/*',
+        'content-type': 'application/json; charset=UTF-8'
+      };
     
-    let data = {
-      name: 'NIV',
-      last: 'BIS'
-    };
+      let data = {
+        name: 'NIV',
+        last: 'BIS'
+      };
 
-    function success (data) {
-    	console.log('success   ', data);
-    };
+      function success (data) {
+        console.log('success   ', data);
+      };
 
-    function error (error) {
-    	console.log('error   ', error);
+      function error (error) {
+        console.log('error   ', error);
+      }
+
+    //getData('/data', headers, success, error);
+
+      postData('/register', headers, data, success, error);
     }
-
-    getData('/data','GET', headers, success, error);
-
-    var data = {'id': 111};
-
-    postData('/data', 'POST', headers, data, success, error);
   }
 ]);

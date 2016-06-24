@@ -5,10 +5,8 @@ app.controller('appHeader', [
   '$rootScope',
   ($scope, $rootScope) => {
   	$scope.header = 'angular is cool';
-		console.log('$scope', $scope);
-		console.log('$rootScope', $rootScope);
-		$scope.change = function () {
-			$scope.header = 'see told you its cool';
-		}
+	$scope.change = function () {
+		$scope.header = 'see told you its cool';
 	}
+  }
 ]);

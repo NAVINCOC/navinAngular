@@ -1,4 +1,5 @@
 //script/index.js
+var request = require('request');
 
 module.exports = {
   index: function(req, res) {
@@ -14,14 +15,13 @@ module.exports = {
       headers: {
         key: 'NAVNIV',
         userid: '2318'
-      }
+      },
+      form: req.body
     };
-console.log('options  ', options);
-    console.log('req   ',req);
-    request(options, function(err, response, data) {
+    
+    request(options, function(err, response, body) {
         if (err) console.log('error    '.error, err)
-        data = JSON.parse(data);
-        res.send(res);
+        res.send(body);
     });
   }
 };

@@ -8,7 +8,7 @@ function getData (url, headers, cbSuccess, cbError) {
   $.ajax({
     url: url,
     type: 'GET',
-    headers: headers,
+    header: headers,
     success: cbSuccess,
     error: cbError
   });
@@ -18,7 +18,7 @@ function postData (url, headers, data, cbSuccess, cbError) {
   $.ajax({
     url: url,
     type: 'POST',
-    headers: headers,
+    header: headers,
     data: data,
     success: cbSuccess,
     error: cbError

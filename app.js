@@ -2,7 +2,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var request = require('request');
 var router = require('./router');
 var colors = require('colors');
  
