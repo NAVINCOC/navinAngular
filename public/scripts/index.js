@@ -9,6 +9,7 @@ module.exports = {
     res.render('login');
   },
   confmLogin: function(req, res) {
+  	var data={email:'er.ashsingla@gmail.com',password:'asdfgh@123'};
     var options = {
       url: 'http://127.0.0.1:2318/v1/login',
       method: 'POST',
@@ -16,7 +17,7 @@ module.exports = {
         key: 'NAVNIV',
         userid: '2318'
       },
-      form: req.body
+      form: data
     };
     
     request(options, function(err, response, body) {
@@ -24,7 +25,7 @@ module.exports = {
         res.status(200).send(body);
     });
   },
-  register: function(req, res) {
+  register: function(req, res) { console.log("123",req.body);
   	var options = {
       url: 'http://127.0.0.1:2318/v1/register',
       method: 'POST',
