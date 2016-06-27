@@ -4,7 +4,22 @@ app.controller('appBody', [
   '$scope',
   '$rootScope',
   ($scope, $rootScope) => {
+
+    $scope.data = 'CLICK to get response from api';
+    
+    $scope.success = function (data) {
+        data = JSON.parse(data);
+        $scope.data = data.name + ' ' + data.last;
+        console.log('success   ', $scope.data);
+        $("#header").click();
+    };
+
+    $scope.error = function (error) {
+      console.log('error   ', error);
+    }
+    
     $scope.click = () => {
+      $scope.data = 'CLICK';
       let headers = {
         key: 'absinth',
         access: 'onlycoc',
@@ -18,17 +33,12 @@ app.controller('appBody', [
         last: 'BIS'
       };
 
-      function success (data) {
-        console.log('success   ', data);
-      };
-
-      function error (error) {
-        console.log('error   ', error);
-      }
-
     //getData('/data', headers, success, error);
 
-      postData('/register', headers, data, success, error);
+      postData('/register', headers, data, $scope.success, $scope.error);
+      //console.log(result);
+      //result = JSON.parse(result);
+      //$scope.data = result.name + ' ' + result.last;
     }
   }
 ]);

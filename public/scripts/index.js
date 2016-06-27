@@ -8,6 +8,22 @@ module.exports = {
   login: function(req, res) {
     res.render('login');
   },
+  confmLogin: function(req, res) {
+    var options = {
+      url: 'http://127.0.0.1:2318/v1/login',
+      method: 'POST',
+      headers: {
+        key: 'NAVNIV',
+        userid: '2318'
+      },
+      form: req.body
+    };
+    
+    request(options, function(err, response, body) {
+        if (err) console.log('error    '.error, err)
+        res.status(200).send(body);
+    });
+  },
   register: function(req, res) {
   	var options = {
       url: 'http://127.0.0.1:2318/v1/register',
@@ -21,7 +37,7 @@ module.exports = {
     
     request(options, function(err, response, body) {
         if (err) console.log('error    '.error, err)
-        res.send(body);
+        res.status(200).send(body);
     });
   }
 };

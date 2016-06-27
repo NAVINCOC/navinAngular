@@ -6,6 +6,8 @@ module.exports = function(app) {
 
   app.get('/login', user.login);
 
+  app.post('/login', user.confmLogin);
+
   app.post('/register', user.register);
 
   app.get('/error', error);
