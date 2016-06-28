@@ -15,56 +15,178 @@ $.modal.defaults = {
 
 
 function emailValidate() {
-     var loginEmail= $('#loginEmail').val();     
-       if (loginEmail!='' && (!ValidateEmail(loginEmail))) {
-            $('#errorEmail').html('Please Enter Valid Email');
-            return false;
-        }
-        else{
-          $('#errorEmail').html('');
-        }
-        $.ajax({
-          url: "",
-          success: function(result){
+  var loginEmail= $('#loginEmail').val();     
+    if (loginEmail!='' && (!ValidateEmail(loginEmail))) {
+      $('#errorEmail').html('Please Enter Valid Email');
+      return false;
+    }
+    else{
+      $('#errorEmail').html('');
+      $.ajax({
+        url: "",
+        success: function(result){
            
-          },
-           error: function (error) {
-                   $('#errorEmail').html(error);
-           }
-        });
+        },
+        error: function (error) {
+          $('#errorEmail').html(error);
+        }
+      });
+    }
+}
 
-  };
-
- function passwordValidate(){
-     var loginPassword= $('#loginPassword').val();  
-     if(loginPassword !=''){
-       if(loginPassword.length < 6 || loginPassword.length > 15){
-         $('#errorPassword').html('Password must be 6 to 15 characters long');
-         return false;
-       }
-       else{
+  function passwordValidate(password){
+    if(password.length < 6 || password.length > 15){
+        return false;
+    }
+    else{
         return true;
-       }
-     } 
-    
-       
- }
- function ValidateEmail(email) {
+    }
+  }
+  function confirmpassword(password,confirmpassword){
+    if(password===confirmpassword){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  function ValidateEmail(email) {
         var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         return expr.test(email);
   };
 
   function validateLogin(){
+    cancelRegister();
     var loginEmail= $('#loginEmail').val(); 
     var loginPassword= $('#loginPassword').val();  
     if(loginEmail==''){
-      $('#errorEmail').html('Please Enter valid Email');
+      $('#errorEmail').html('Please Enter Email');
       return false;
     }  
     if(loginPassword==''){
       $('#errorPassword').html('Please Enter Password');
       return false;
     }    
-    if()
+   if(!ValidateEmail(loginEmail)){
+      $('#errorEmail').html('Please Enter valid Email');
+      return false;
+    }
+    else{
+      $('#errorEmail').html('');
+      $('#errorPassword').html('');
+    }
+
+  }
+
+  function validateRegidter(){
+
+    var emailR=$('#emailR').val();
+    var passwordR=$('#passwordR').val();
+    var confirmPasswordR=$('#confirmPasswordR').val();
+    var address1=$('#address1').val();
+    var address2=$('#address2').val();
+    var address3=$('#address3').val();
+    var country=$('#country').val();
+    var state=$('#state').val();
+    var city=$('#city').val();
+    var pincode=$('#pincode').val();
+    var contactno=$('#contactno').val();
+    var contactperson=$('#contactperson').val();
+    var company=$('#company').val();
+    var industryType=$('#industryType').val();
+    $('#loginEmail').val('');
+    $('#errorEmail').html('');
+    $('#errorPassword').html('');
+    $('#loginPassword').val();
+    if(emailR==''){
+      $('#errorEmailR').html('Please enter Email Id');
+    }
+    if(passwordR==''){
+      $('#errorPasswordR').html('Please enter Password');
+    }
+     if(confirmPasswordR==''){
+      $('#errorConfirmPassword').html('Please enter Confirm Password');
+    } 
+    if(address1==''){
+      $('#errorAddress').html('Please Enter Addresss');
+    }
+   if(state==0){
+    $('#errorState').html('Please Select State ');
+   }
+   if(country==0){
+    $('#errorCountry').html('Please Select Country');
+   }
+   if(city==0){
+    $('#errorCity').html('Please Select City');
+   }
+    if(pincode==0){
+    $('#errorPincode').html('Please Select Pincode');
+   }
+    if(contactno==''){
+    $('#errorContact').html('Please Enter Contact No.');
+   }
+    if(contactperson==''){
+    $('#errorContactPerson').html('Please Enter Contact Person Name');
+   }
+   if(industryType==0){
+    $('#errorIndustryType').html('Please Select Industry Type');
+   }
+   if(company==''){
+    $('#errorCompany').html('Please Enter Company Name');
+   }
+   if(emailR!=''){
+    if(!ValidateEmail(emailR)){
+       $('#errorEmailR').html('Please enter Valid Email Id');
+    }
+   }
+   if(passwordR!=='' && (!(passwordValidate(passwordR)))){
+     $('#errorPasswordR').html('Password must be 8 to 16 characters long');
+   }
+   if(!(confirmpassword(passwordR,confirmPasswordR))){
+    $('#errorConfirmPassword').html('Password not matched');
+   }
+   if(contactno!='' && (!allnumeric(contactno))){
+    $('#errorContact').html('Must be Numeric')
+   }
+
+  }
+  function allnumeric(inputtxt){  
+    var numbers = /^[-+]?[0-9]+$/;  
+    if(inputtxt.match(numbers)){  
+      return true;  
+    }  
+    else {  
+      return false;  
+    }  
+  }  
+
+  function cancelRegister(){
+     $('#errorContact').html('');
+     $('#errorContactPerson').html('');
+     $('#errorIndustryType').html('');
+     $('#errorCompany').html('');
+     $('#errorState').html('');
+     $('#errorCountry').html('');
+     $('#errorCity').html('');
+     $('#errorEmailR').html('');
+     $('#errorPasswordR').html('');
+     $('#errorConfirmPassword').html('');
+     $('#errorAddress').html('');
+     $('#errorPincode').html('');
+     $('#emailR').val('');
+     $('#passwordR').val('');
+     $('#confirmPasswordR').val('');
+     $('#contactno').val('');
+     $('#contactperson').val('');
+     $('#address1').val('');
+     $('#address3').val('');
+     $('#address2').val('');
+     $('#pincode').val('0');
+     $('#country').val('0');
+     $('#state').val('0');
+     $('#city').val('0');
+     $('#industryType').val('0');
+     $('#company').val('');
+     $("#companyRadio").prop("checked", true)
 
   }
