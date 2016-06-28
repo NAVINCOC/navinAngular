@@ -8,6 +8,8 @@ module.exports = function(app) {
 
   app.post('/login', user.confmLogin);
 
+  app.post('/verifyEmail', user.verifyEmail);
+
   app.post('/register', user.register);
 
   app.get('/error', error);

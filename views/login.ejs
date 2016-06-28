@@ -19,34 +19,34 @@
         <img src="/images/logo.jpg"/>
       </div>
       <!-- login form -->
-      <form   id="loginForm">
-      <div class="col-sm-6">
-      <!-- <div class="col-sm-12 height11"></div> -->
-      <div class="col-sm-5">
-        <div class="col-sm-12"><span>Email</span></div>
-        <div class="col-sm-12">
-          <div class="input-group">
-            <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-             <input id="loginEmail" type="text" class="form-control " onfocusout="emailValidate()"/></div>
-          </div>
-        <div class="col-sm-12"><span class="error" id="errorEmail"></span></div>
-      </div>
-      <div class="col-sm-5">
-        <div class="col-sm-12"><span>Password</span></div>   
-         <div class="col-sm-12">
-          <div class="input-group">
-            <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div> 
-             <input type="Password" id="loginPassword" class="form-control" onfocusout="passwordValidate()"/></div>
-          </div>
-        <div class="col-sm-12 "><span class="error" id="errorPassword"></span></div>
-      </div>
-      <div class="col-sm-2">
-        <div class="col-sm-12 height20"></div>
-        <div class="col-sm-12">
-          <input type="button" class="btn btn-primary form-control" name="Login" value="Login" onclick="validateLogin();" />
-        </div>
-      </div>
-      </div>
+      <form   id="loginForm" method="post">
+	      <div class="col-sm-6">
+	      <!-- <div class="col-sm-12 height11"></div> -->
+	      <div class="col-sm-5">
+	        <div class="col-sm-12"><span>Email</span></div>
+	        <div class="col-sm-12">
+	          <div class="input-group">
+	            <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
+	             <input id="loginEmail" name="loginEmail" type="text" class="form-control " onfocusout="emailValidate()"/></div>
+	          </div>
+	        <div class="col-sm-12"><span class="error" id="errorEmail"></span></div>
+	      </div>
+	      <div class="col-sm-5">
+	        <div class="col-sm-12"><span>Password</span></div>   
+	         <div class="col-sm-12">
+	          <div class="input-group">
+	            <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div> 
+	             <input type="Password" id="loginPassword" name="loginPassword" class="form-control" onfocusout="passwordValidate()"/></div>
+	          </div>
+	        <div class="col-sm-12 "><span class="error" id="errorPassword"></span></div>
+	      </div>
+	      <div class="col-sm-2">
+	        <div class="col-sm-12 height20"></div>
+	        <div class="col-sm-12">
+	          <input type="button" class="btn btn-primary form-control" name="Login" value="Login" onclick="validateLogin();" />
+	        </div>
+	      </div>
+	      </div>
       </form>
     </div>
  
@@ -293,6 +293,7 @@
 </div>
     <script src='min/js/jQuery.min.js'></script>
     <script src="js/jquery.modal.js"></script>
+     <script src="js/service.js"></script>
        <script src="js/login.js"></script>
        <script type="text/javascript">
        function show() {
