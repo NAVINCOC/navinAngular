@@ -33,17 +33,17 @@ module.exports = {
         key: 'NAVNIV',
         userid: '2318'
       },
-      form: JSON.parse(req.body)
+      form: req.body
     };
     
     request(options, function(err, response, body) {
         if (err) {console.log('error    '.error, err);}
-        else if(body[0] === '[')
-        {
-        	console.log(body[0]);
+        /*else if(body[0] === '[')
+        {*/
+        	console.log(body);
         	body=JSON.parse(body);
 			res.status(200).send(body);
-		}       
+		/*} */      
         
     });
   }
