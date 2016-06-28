@@ -8,25 +8,26 @@
     <link rel="stylesheet" type="text/css" href="/min/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="min/css/ngCropper.all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/customStyle.css" />
+     <link rel="stylesheet" type="text/css" href="/css/jquery.modal.css" />
     <link rel="icon" href="logo.jpg" />
     <title>Sign-Up/Login Form</title>
   </head>
-  <body>
+  <body >
     <div class="col-sm-12" style="max-height:400px;background-color:#eee;padding:5px;">
       
       <div class="col-sm-6">        
         <img src="/images/logo.jpg"/>
-       
       </div>
+      <!-- login form -->
+    <!--   <form   id="loginForm"> -->
       <div class="col-sm-6">
       <!-- <div class="col-sm-12 height11"></div> -->
       <div class="col-sm-5">
-
         <div class="col-sm-12"><span>Email</span></div>
         <div class="col-sm-12">
           <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-             <input type="text" class="form-control "/></div>
+             <input id="loginEmail" type="text" class="form-control " onfocusout="emailValidate()"/></div>
           </div>
         <div class="col-sm-12"><span class="error" id="errorEmail"></span></div>
       </div>
@@ -34,44 +35,43 @@
         <div class="col-sm-12"><span>Password</span></div>   
          <div class="col-sm-12">
           <div class="input-group">
-            <div class="input-group-addon"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></div> 
-             <input type="Password" class="form-control "/></div>
+            <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div> 
+             <input type="Password" id="loginPassword" class="form-control" onfocusout="passwordValidate()"/></div>
           </div>
-        <div class="col-sm-12 hide"><span class="error" id="errorPassword"></span></div>
+        <div class="col-sm-12 "><span class="error" id="errorPassword"></span></div>
       </div>
       <div class="col-sm-2">
         <div class="col-sm-12 height20"></div>
         <div class="col-sm-12">
-          <input type="submit" class="btn btn-primary form-control" name="Login" value="Login"/>
+          <input type="submit" class="btn btn-primary form-control" name="Login" value="Login" onclick="validateLogin();" />
         </div>
       </div>
-      <div class="col-sm-5"></div>
-      <div class="col-sm-5"> <div class="col-sm-12"><a href="#" class="btn-link" >Forget Password ?</a></div></div>
-
       </div>
-      
-    
+     <!--  </form> -->
     </div>
+ 
+    <div id="registerForm">
     <div class="col-sm-4">
       <center>
-      <div class="col-sm-12" style="padding:55px;background-color:#eee;height:490px;margin-top:60px;">
-      <i class="fa-5x fa fa-user main-login"  aria-hidden="true"></i>
-      <h2 style="color:cadetblue">Welcome to Polestar</h2>
-      <div class="col-sm-12 height41"></div>
-      <h3 style="color:cadetblue">Join Us Now</h3>
-      <span>Your account provide access to our services and much more...</span>
-      </div></center>
+        <div class="col-sm-12" style="padding:55px;background-color:#eee;height:490px;margin-top:60px;">
+          <i class="fa-5x fa fa-user main-login"  aria-hidden="true"></i>
+          <h2 style="color:cadetblue">Welcome to Polestar</h2>
+          <div class="col-sm-12 height41"></div>
+          <h3 style="color:cadetblue">Join Us Now</h3>
+          <span>Your account provide access to our services and much more...</span>
+        </div>
+      </center>
     </div>
+    
     <div class="col-sm-8">
-    <div class="col-sm-12 height25"></div>
-    <div class="col-sm-12"></div>
-    <div class="col-sm-12 height25"></div>
-    <div class="col-sm-12">
-      <div class="col-sm-4">
-        <div class="col-sm-12"><span>Email</span></div>
-        <div class="col-sm-12">
-          <div class="input-group">
-            <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
+      <div class="col-sm-12 height25"></div>
+      <div class="col-sm-12 height25"></div>
+      <div class="col-sm-12">
+        <div class="col-sm-4">
+          <div class="col-sm-12"><span>Email</span></div>
+            <div class="col-sm-12">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
              <input type="text" class="form-control"/></div>
         </div>
         <div class="col-sm-12"><span class="error" id="errorEmailR"></span></div>
@@ -79,7 +79,7 @@
       <div class="col-sm-4">
         <div class="col-sm-12"><span>Password</span></div>
         <div class="col-sm-12"><div class="input-group">
-            <div class="input-group-addon"><i class="fa fa-exclamation-circle" aria-hidden="true"></i></div> 
+            <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div> 
              <input type="Password" class="form-control "/></div>
         </div>
         <div class="col-sm-12"><span class="error" id="errorPasswordR"></span></div>
@@ -89,7 +89,7 @@
         <div class="col-sm-12">
             <div class="input-group">
               <div class="input-group-addon">
-               <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+               <i class="fa fa-key" aria-hidden="true"></i>
               </div> 
              <input type="Password" class="form-control "/>
             </div>
@@ -276,12 +276,118 @@
          <div class="col-sm-12 ">
          <div class="col-sm-12 height11"></div>
          <div class="col-lg-4"></div>
-          <div class="col-sm-8 "><span>Already Registered User Please </span><a href="" class="btn-link" >Login</a> <span>Here</span></div>
+          <div class="col-sm-8 "><span>Already Registered User Please </span><a href="#login_modal" rel="modal:open" class="btn-link" >Login</a> <span>Here</span></div>
           </div>
       </div>
-     
+      
       </div>
+</div>
+
+<div id="mainpage" onclick="show()" >
+     
+</div>
+</div>
     <script src='min/js/jQuery.min.js'></script>
-    <script src="js/index.js"></script>
+    <script src="js/jquery.modal.js"></script>
+       <script src="js/login.js"></script>
+       <script type="text/javascript">
+       function show() {
+        $("#registerForm").show();
+       }
+
+            function showmodalforget(){
+           }
+       </script>
   </body>
 </html>
+<div id="login_modal" style="display:none;">
+   
+    <div class="col-sm-12 login-header">
+    <span>Login</span>
+
+
+    </div>
+    <div class="col-sm-12 login-body">
+       <div class="col-sm-12">
+         
+        <div class="col-sm-12"><span>Email</span></div>
+        <div class="col-sm-12">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
+             <input type="text" class="form-control "/></div>
+          </div>
+        <div class="col-sm-12"><span class="error" id="errorEmailLogin"></span></div>
+      </div>
+       <div class="col-sm-12">
+
+        <div class="col-sm-12"><span>Password</span></div>
+        <div class="col-sm-12">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div> 
+             <input type="text" class="form-control "/></div>
+          </div>
+        <div class="col-sm-12"><span class="error" id="errorPasswordLogin"></span></div>
+      </div>
+      <div class="col-sm-12 height20"></div>
+        <div class="col-sm-12">
+          <div class="col-sm-3"></div>
+           <div class="col-sm-3">
+          <input type="submit" class="btn btn-primary form-control" name="Login" value="Login"/>
+          </div>
+          <div class="col-sm-3">
+          <a class="btn btn-warning form-control" rel="modal:close" href="#">Cancel</a>
+          </div>
+        </div>
+        <div class="col-sm-12 height11"></div>
+        <div class="col-sm-12" >
+        <center><span >Having Trouble in Login <a onclick="showmodalforget(); " href="#forget-modal" rel="modal:open" Click <span>here</span></a></span></center>
+        </div>
+    </div>     
+  </div>
+
+
+
+
+  <div id="#forget-modal" style="display:none;">
+   
+    <div class="col-sm-12 login-header">
+    <span>Login</span>
+
+
+    </div>
+    <div class="col-sm-12 login-body">
+       <div class="col-sm-12">
+         
+        <div class="col-sm-12"><span>Email</span></div>
+        <div class="col-sm-12">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
+             <input type="text" class="form-control "/></div>
+          </div>
+        <div class="col-sm-12"><span class="error" id="errorEmailLogin"></span></div>
+      </div>
+       
+      <div class="col-sm-12 height11"></div>
+        <div class="col-sm-12">
+          <div class="col-sm-3"></div>
+           <div class="col-sm-3">
+          <input type="submit" class="btn btn-primary form-control" name="Submit" value="Submit"/>
+          </div>
+          <div class="col-sm-3">
+          <a class="btn btn-warning form-control" rel="modal:close" href="#">Cancel</a>
+          </div>
+        </div>
+        <div class="col-sm-12 height11"></div>
+        <div class="col-sm-12">
+      
+        </div>
+    </div>     
+  </div>
+
+<script type="text/javascript">
+
+ $(function() {
+    
+});
+</script>
+ 

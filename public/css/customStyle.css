@@ -164,11 +164,11 @@ label {
   height: 11px;
 }
 input {
-    height: 31px !important;
+    height: 30px !important;
     color:#ccc;
 }
 select {
-    height: 31px !important;
+    height: 30px !important;
 }
 span .fa{
   cursor: default !important;
@@ -307,4 +307,34 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
    padding: 50px;
    border: 4px solid #00c0F2 !important;
    border-radius: 50%;
+}
+
+.input-group .form-control{
+  z-index: 0 !important;
+}
+.modal{
+  padding: 0px !important;
+
+}
+
+.panel{
+  background-color:#22bdb6;
+  color:white;
+}
+
+.login-header{
+  background-color: #e7e7e7;
+  color: #00C0F2;
+   height: 50px;
+   text-align: center;
+   padding: 15px;
+   font-size: 18px;
+
+}
+.login-header> span{
+  color:#777 !important;
+
+}
+.login-body{
+  padding: 15px;
 }
