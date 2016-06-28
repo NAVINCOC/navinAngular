@@ -4,7 +4,5 @@ app.controller('appLeftbar', [
     '$scope',
     '$rootScope',
     ($scope, $rootScope) => {
-		console.log('$scope', $scope);
-		console.log('$rootScope', $rootScope);
 	}
 ]);

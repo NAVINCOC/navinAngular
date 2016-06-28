@@ -11,10 +11,12 @@
     <title>Wellcome</title>
   </head>
   <body ng-app="dashboard">
-    <header ng-controller="appHeader"id="header" class="header" ng-click="change();">{{header}}</header>
+    <header ng-controller="appHeader" id="header" class="header" ng-click="change();">{{header}}</header>
     <aside ng-controller="appLeftbar" id="leftBar" class="leftBar"><i class="fa fa-anchor"></i>Manage User</aside>
     <div ng-controller="appBody" id="body" class="body">
         <i class="fa fa-hand-o-up"></i>this
+        <div ng-bind="data"></div>
+        <input type="button" ng-click="click();" name="" value="CLICK">
     </div>
     <footer id="footer" class="footer">Loading...</footer>
     <script type="text/javascript" src="/min/js/app.min.js"></script>
@@ -32,6 +34,7 @@
     <script type="text/javascript" src="min/js/ngCropper.all.min.js"></script>
     <!-- to autocomplete text like google options for searching -->
     <script type="text/javascript" src="min/js/autocomplete.min.js"></script>
+    <script type="text/javascript" src="js/service.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/appHeader.js"></script>
     <script type="text/javascript" src="js/appLeftbar.js"></script>
