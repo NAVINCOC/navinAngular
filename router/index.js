@@ -12,5 +12,7 @@ module.exports = function(app) {
 
   app.post('/register', user.register);
 
+  app.get('/logout', user.logout);
+
   app.get('/error', error);
 };

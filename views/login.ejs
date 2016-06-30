@@ -12,58 +12,83 @@
     <link rel="icon" href="logo.jpg" />
     <title>Sign-Up/Login Form</title>
   </head>
-  <body >
-    <div class="col-sm-12" style="max-height:400px;background-color:#eee;padding:5px;">
+  <body  style="background-image:url('images/hero-img9.jpg');">
+    <div class="col-sm-12" style="max-height:400px;padding:5px; ">
       
       <div class="col-sm-6">        
-        <img src="/images/logo.jpg"/>
+        <h2 style="color:white">Polestar Solutions</h2>
       </div>
       <!-- login form -->
       <form   id="loginForm" method="post">
-	      <div class="col-sm-6">
-	      <!-- <div class="col-sm-12 height11"></div> -->
-	      <div class="col-sm-5">
-	        <div class="col-sm-12"><span>Email</span></div>
-	        <div class="col-sm-12">
-	          <div class="input-group">
-	            <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-	             <input id="loginEmail" name="loginEmail" type="text" class="form-control " onfocusout="emailValidate()"/></div>
-	          </div>
-	        <div class="col-sm-12"><span class="error" id="errorEmail"></span></div>
-	      </div>
-	      <div class="col-sm-5">
-	        <div class="col-sm-12"><span>Password</span></div>   
-	         <div class="col-sm-12">
-	          <div class="input-group">
-	            <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div> 
-	             <input type="Password" id="loginPassword" name="loginPassword" class="form-control" onfocusout="passwordValidate()"/></div>
-	          </div>
-	        <div class="col-sm-12 "><span class="error" id="errorPassword"></span></div>
-	      </div>
-	      <div class="col-sm-2">
-	        <div class="col-sm-12 height20"></div>
-	        <div class="col-sm-12">
-	          <input type="button" class="btn btn-primary form-control" name="Login" value="Login" onclick="validateLogin();" />
-	        </div>
-	      </div>
-	      </div>
+      <div class="col-sm-6">
+      <!-- <div class="col-sm-12 height11"></div> -->
+      <div class="col-sm-5">
+        <div class="col-sm-12"><span class="front">Email</span></div>
+        <div class="col-sm-12">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
+             <input id="loginEmail" type="text" name="loginEmail" class="form-control " onfocusout="emailValidate()" value="<%=email%>"/></div>
+          </div>
+        <div class="col-sm-12"><span class="error" id="errorEmail"><%=error%></span></div>
+      </div>
+      <div class="col-sm-5">
+        <div class="col-sm-12"><span class="front">Password</span></div>   
+         <div class="col-sm-12">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div> 
+             <input type="Password" id="loginPassword" name="loginPassword" class="form-control" onfocusout="passwordValidate()"/></div>
+          </div>
+        <div class="col-sm-12 "><span class="error" id="errorPassword"></span></div>
+      </div>
+      <div class="col-sm-2">
+        <div class="col-sm-12 height20"></div>
+        <div class="col-sm-12">
+          <input type="button" class="btn btn-primary form-control" name="Login" value="Login" onclick="validateLogin();" />
+        </div>
+      </div>
+      </div>
       </form>
     </div>
- 
-    <div id="registerForm">
-    <div class="col-sm-4">
-      <center>
-        <div class="col-sm-12" style="padding:55px;background-color:#eee;height:490px;margin-top:60px;">
-          <i class="fa-5x fa fa-user main-login"  aria-hidden="true"></i>
-          <h2 style="color:cadetblue">Welcome to Polestar</h2>
-          <div class="col-sm-12 height41"></div>
-          <h3 style="color:cadetblue">Join Us Now</h3>
-          <span>Your account provide access to our services and much more...</span>
-        </div>
-      </center>
-    </div>
+<div id="mainpage" onclick="show()" >
+  <div class="col-sm-12" style="height:650px;">
+  <div class="col-sm-12" style="margin-top:200px;">
+    <center><h1 style="color:white">Web Developement - Custom Application  - Bussiness Application</h1></center>
+  </div>
+  <div class="col-sm-12" style="">
+    <h1 class="custom-h1">Welcome Home</h1>
+  </div>
+  <center><a  class="btn  btn-register btn-lg"  href="#register-modal" rel="modal:open">Register Now</a>
+
+  </center>
+  <center>
+<div class="height11"></div>
+  <span style="color:white !important">Already Registered User Please </span><a href="#login_modal" rel="modal:open" class="btn-link" >Login</a> <span style="color:white !important">Here</span></center>
     
-    <div class="col-sm-8">
+  </div>
+     
+</div>
+</div>
+    <script src='min/js/jQuery.min.js'></script>
+    <script src="js/jquery.modal.js"></script>
+    <script src="js/service.js"></script>
+    <script src="js/login.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    $('.front').css('color' , 'white');
+    });
+    </script>
+      
+  </body>
+</html>
+<!-- registeration modal -->
+<div id="register-modal" style="display:none;width:900px;">
+   
+    <div class="col-sm-12 register-header">
+      <span>Sign Up</span>
+    </div>
+    <div class="col-sm-12 register-body">
+
+    <div class="col-sm-12">
     <form method="post">
       <div class="col-sm-12 height25"></div>
       <div class="col-sm-12 height25"></div>
@@ -73,7 +98,7 @@
             <div class="col-sm-12">
             <div class="input-group">
               <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-             <input type="text" class="form-control" id="emailR"/></div>
+             <input type="text" class="form-control" id="emailR" name="emailR"/></div>
         </div>
         <div class="col-sm-12"><span class="error" id="errorEmailR"></span></div>
       </div>
@@ -81,7 +106,7 @@
         <div class="col-sm-12"><span>Password</span></div>
         <div class="col-sm-12"><div class="input-group">
             <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div> 
-             <input type="Password" class="form-control " id="passwordR"/></div>
+             <input type="Password" class="form-control " id="passwordR" name="passwordR"/></div>
         </div>
         <div class="col-sm-12"><span class="error" id="errorPasswordR"></span></div>
       </div>
@@ -92,7 +117,7 @@
               <div class="input-group-addon">
                <i class="fa fa-key" aria-hidden="true"></i>
               </div> 
-             <input type="Password" class="form-control " id="confirmPasswordR"/>
+             <input type="Password" class="form-control " id="confirmPasswordR" name="confirmPasswordR"/>
             </div>
         </div>
         <div class="col-sm-12"><span class="error" id="errorConfirmPassword"></span></div>
@@ -108,7 +133,7 @@
         <div class="input-group">
               <div class="input-group-addon">
                <i class="fa fa-pencil" aria-hidden="true"></i>
-              </div><input type="text" class="form-control" id="address1"/></div>
+              </div><input type="text" class="form-control" id="address1" name="address1"/></div>
               </div>
         <div class="col-sm-12"><span class="error" id="errorAddress"></span></div>
       </div>
@@ -118,7 +143,7 @@
         <div class="input-group">
               <div class="input-group-addon">
                <i class="fa fa-pencil" aria-hidden="true"></i>
-              </div><input type="text" class="form-control" id="adress2"/></div>
+              </div><input type="text" class="form-control" id="adress2" name="address2"/></div>
               </div>
       </div>
       <div class="col-sm-4">
@@ -128,7 +153,7 @@
               <div class="input-group-addon">
                <i class="fa fa-pencil" aria-hidden="true"></i>
               </div>
-              <input type="text" class="form-control" id="address3"/></div>
+              <input type="text" class="form-control" id="address3" name="address3"/></div>
               </div>
 
       </div>
@@ -142,7 +167,7 @@
             <div class="input-group-addon">
               <i class="fa fa-road" aria-hidden="true"></i>
             </div>
-           <select class="form-control" id="country">
+           <select class="form-control" id="country" name="country">
             <option value="0">Select</option>    
            </select>
            </div>
@@ -158,7 +183,7 @@
             <div class="input-group-addon">
               <i class="fa fa-road" aria-hidden="true"></i>
             </div>
-          <select class="form-control" id="state">
+          <select class="form-control" id="state" name="state">
             <option value="0">Select</option>    
            </select>
            </div>
@@ -172,7 +197,7 @@
             <div class="input-group-addon">
               <i class="fa fa-road" aria-hidden="true"></i>
             </div>
-          <select class="form-control" id="city">
+          <select class="form-control" id="city" name="city">
             <option value="0">Select</option>    
            </select>
            </div>
@@ -189,7 +214,7 @@
             <div class="input-group-addon">
               <i class="fa fa-qrcode" aria-hidden="true"></i>
             </div>
-          <select class="form-control" id="pincode">
+          <select class="form-control" id="pincode" name="pincode">
             <option value="0">Select</option>  
             <option value="c">c</option>  
            </select>
@@ -204,7 +229,7 @@
             <div class="input-group-addon">
               <i class="fa fa-phone" aria-hidden="true"></i>
             </div>
-        <input type="text" class="form-control" id="contactno"/>
+        <input type="text" class="form-control" id="contactno" name="contactno"/>
         </div>
         </div>
         <div class="col-sm-12"><span class="error" id="errorContact"></span></div>
@@ -216,7 +241,7 @@
             <div class="input-group-addon">
               <i class="fa fa-user" aria-hidden="true"></i>
             </div>
-          <input type="text" class="form-control" id="contactperson"/>
+          <input type="text" class="form-control" id="contactperson" name="contactperson"/>
           </div>
         </div>
         <div class="col-sm-12"><span class="error" id="errorContactPerson"></span></div>
@@ -230,7 +255,7 @@
               <div class="input-group-addon">
                <i class="fa fa-bank" aria-hidden="true"></i>
               </div> 
-             <input type="text" class="form-control " id="company"/>
+             <input type="text" class="form-control " id="company" name="company"/>
             </div>
         </div>
         <div class="col-sm-12"><span class="error" id="errorCompany"></span></div>
@@ -243,7 +268,7 @@
               <div class="input-group-addon">
                <i class="fa fa-bank" aria-hidden="true"></i>
               </div> 
-             <select class="form-control" id="industryType">
+             <select class="form-control" id="industryType" name="industryType">
            <option value="0">Select</option>
     
            </select>
@@ -269,42 +294,28 @@
     </div>
      <div class="col-sm-12 height20"></div>
       <div class="col-sm-12">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-2 ">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3 ">
           <input type="button" class="btn btn-primary form-control" name="Register Now" value="Register Now" onclick="validateRegidter()" />
         </div>
-        <div class="col-sm-2 ">
-          <input type="button" class="btn btn-warning form-control" name="Cancel" value="Cancel" onclick="cancelRegister();" />
+        <div class="col-sm-3">
+          <a  class="btn btn-warning form-control" href="#" rel="modal:close" >Cancel</a>
         </div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-3"></div>
          <div class="col-sm-12 ">
          <div class="col-sm-12 height11"></div>
          <div class="col-lg-4"></div>
-          <div class="col-sm-8 "><span>Already Registered User Please </span><a href="#login_modal" rel="modal:open" class="btn-link" >Login</a> <span>Here</span></div>
+          <div class="col-sm-8 "><span style="color:#777 !important">Already Registered User Please </span><a href="#login_modal" rel="modal:open" class="btn-link" >Login</a> <span style="color:#777 !important">Here</span></div>
           </div>
       </div>
       </form>
       </div>
+    </div>
 </div>
 
-<div id="mainpage" onclick="show()" >
-     
-</div>
-</div>
-    <script src='min/js/jQuery.min.js'></script>
-    <script src="js/jquery.modal.js"></script>
-     <script src="js/service.js"></script>
-       <script src="js/login.js"></script>
-       <script type="text/javascript">
-       function show() {
-        $("#registerForm").show();
-       }
+<!-- End of Registeration modal -->
 
-            function showmodalforget(){
-           }
-       </script>
-  </body>
-</html>
+<!-- login modal  -->
 <div id="login_modal" style="display:none;">
    
     <div class="col-sm-12 login-header">
@@ -319,7 +330,7 @@
         <div class="col-sm-12">
           <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-             <input type="text" class="form-control "/></div>
+             <input type="text" class="form-control " id="modalEmailLogin"/></div>
           </div>
         <div class="col-sm-12"><span class="error" id="errorEmailLogin"></span></div>
       </div>
@@ -329,7 +340,7 @@
         <div class="col-sm-12">
           <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div> 
-             <input type="text" class="form-control "/></div>
+             <input type="text" class="form-control" id="modelPasswordLogin"/></div>
           </div>
         <div class="col-sm-12"><span class="error" id="errorPasswordLogin"></span></div>
       </div>
@@ -344,55 +355,48 @@
           </div>
         </div>
         <div class="col-sm-12 height11"></div>
-        <div class="col-sm-12" >
-        <center><span >Having Trouble in Login <a onclick="showmodalforget(); " href="#forget-modal" rel="modal:open" Click <span>here</span></a></span></center>
+        <div class="col-sm-12" id="forget">
+        <center><span>Having Trouble in Login </span><a onclick="showmodalforget(); " href="#forget-modal" rel="modal:open" >Click here</a></center>
         </div>
     </div>     
-  </div>
+  </div
 
 
-
-
-  <div id="#forget-modal" style="display:none;">
+<!-- Forget modal  -->
+<div id="forget-modal" style="display:none;">
    
-    <div class="col-sm-12 login-header">
+    <div class="col-sm-12 forget-header">
     <span>Login</span>
 
 
     </div>
-    <div class="col-sm-12 login-body">
+    <div class="col-sm-12 forget-body">
        <div class="col-sm-12">
          
         <div class="col-sm-12"><span>Email</span></div>
         <div class="col-sm-12">
           <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-             <input type="text" class="form-control "/></div>
+             <input type="text" class="form-control " id="forgetEmail" name="forgetEmail"/></div>
           </div>
-        <div class="col-sm-12"><span class="error" id="errorEmailLogin"></span></div>
+        <div class="col-sm-12"><span class="error" id="errorEmailforget"></span></div>
       </div>
-       
-      <div class="col-sm-12 height11"></div>
+      
+      <div class="col-sm-12 height20"></div>
         <div class="col-sm-12">
           <div class="col-sm-3"></div>
            <div class="col-sm-3">
-          <input type="submit" class="btn btn-primary form-control" name="Submit" value="Submit"/>
+          <input type="button" class="btn btn-primary form-control" name="Submit" value="Submit"/>
           </div>
           <div class="col-sm-3">
           <a class="btn btn-warning form-control" rel="modal:close" href="#">Cancel</a>
           </div>
         </div>
         <div class="col-sm-12 height11"></div>
-        <div class="col-sm-12">
-      
-        </div>
+        
     </div>     
-  </div>
+  </div
 
-<script type="text/javascript">
 
- $(function() {
-    
-});
-</script>
- 
+
+

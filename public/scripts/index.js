@@ -1,14 +1,32 @@
 //script/index.js
 var request = require('request');
+var sess;
 
 module.exports = {
   index: function(req, res) {
-    res.render('index');
+  	sess=req.session;
+  	console.log("sess",sess);
+  	if(sess.email) {
+  		
+		 res.render('index');
+	}
+	else {
+		res.redirect('/login');
+	}
+   
   },
   login: function(req, res) {
-    res.render('login');
+  	sess=req.session;
+  	if(sess.email) {
+      res.redirect('/');
+    }
+	else{
+		 res.render('login', {email: '', error: ""});
+	}
+   
   },
   confmLogin: function(req, res) {
+  	console.log("check:",req.body);
   	var data=req.body;
     var options = {
       url: 'http://127.0.0.1:2318/v1/login',
@@ -21,8 +39,27 @@ module.exports = {
     };
     
     request(options, function(err, response, body) {
-        if (err) console.log('error'.error, err)
-        res.render('index');
+        if (err) { console.log('error'.error, err)}
+        else if(JSON.parse(body).length > 0) {
+        	console.log(body);
+        		sess= req.session;
+    			console.log("login verify response:",body);
+    			body= JSON.parse(body);
+    			console.log("sess-body",body);	
+    			sess= req.session;
+    			sess.email=body[0].emailId;
+    			sess.name = body[0].firstName;
+    			sess.contact = body[0].contactNo;
+    			sess.id = body[0].id;
+    			sess.isValidated = body[0].isValidated;
+    			sess.isActive  = body[0].isActive;
+    			console.log("sess2",sess);
+				res.redirect('/');
+		}
+		else if(JSON.parse(body).length == 0){
+				res.render('login', {email: req.body.loginEmail, error: "Invalid Email or password"});
+		}
+        
     });
   },
   verifyEmail: function(req, res) {
@@ -67,5 +104,15 @@ module.exports = {
 		/*} */      
         
     });
-  }
+  },
+  logout: function(req,res) {
+	  req.session.destroy(function(err) {
+	  if(err) {
+	    console.log(err);
+	  } else {
+	    res.redirect('/login');
+	  }
+	});	
+  } 
+  
 };

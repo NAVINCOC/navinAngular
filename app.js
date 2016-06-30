@@ -4,7 +4,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var router = require('./router');
 var colors = require('colors');
- 
+var session = require('express-session');
+
+
 colors.setTheme({
   silly: 'rainbow',
   input: 'grey',
@@ -25,6 +27,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+app.use(session({secret: 'qwerty0987762', 
+                 saveUninitialized: true,
+                 resave: true}));
 
 console.log('server listening at 127.0.0.1 over port 1823'.info);
 app.use(cookieParser());
@@ -35,5 +40,3 @@ app.use(express.static(path.join(__dirname, 'public')));
 router(app);
 
 app.listen(1823);
-
-
