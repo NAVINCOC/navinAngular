@@ -12,7 +12,9 @@ $.modal.defaults = {
   fadeDelay: 1.0          // Point during the overlay's fade-in that the modal begins to fade in (.5 = 50%, 1.5 = 150%, etc.)
 };
 
-
+$(function () {
+  showHideRadio('#companyType1Yes', '#companyType2No', '#companyType1No', '#companyType2Yes', '#companyType', 'COMPANY');
+})
 
 function emailValidate() {
     $('#successEmail').text("");
@@ -52,42 +54,41 @@ function emailValidate() {
     }
 }
 
-  function passwordValidate(password){
-    if(password.length < 6 || password.length > 15){
-        return false;
-    }
-    else{
-        return true;
-    }
+function passwordValidate (password) {
+  if(password.length < 6 || password.length > 15){
+    return false;
   }
-  function confirmpassword(password,confirmpassword){
-    if(password===confirmpassword){
-      return true;
-    }
-    else{
-      return false;
-    }
+  else{
+    return true;
   }
-  function validateEmail(email) {
-        var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        return expr.test(email);
-  };
+}
+
+function confirmpassword (password, confirmpassword) {
+  if (password === confirmpassword) {
+    return true;
+  } else {
+    return false;
+  }
+}
+function validateEmail(email) {
+  var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  return expr.test(email);
+};
 
   function validateLogin(){
     cancelRegister();
     var loginEmail= $('#loginEmail').val(); 
     var loginPassword= $('#loginPassword').val();  
-    if(loginEmail==''){
+    if (loginEmail === '') {
       $('#errorEmail').text('Please Enter Email');
       return false;
-    } else if(loginPassword==''){
+    } else if (loginPassword === '') {
       $('#errorPassword').text('Please Enter Password');
       return false;
-    } else if(!validateEmail(loginEmail)){
+    } else if ( !validateEmail(loginEmail) ) {
       $('#errorEmail').text('Please Enter valid Email');
       return false;
-    }
-    else{
+    } else {
       $('#errorEmail').text('');
       $('#errorPassword').text('');
       document.forms['loginForm'].action='login';
@@ -97,7 +98,6 @@ function emailValidate() {
   }
 
   function validateRegidter(){
-
     var emailR=$('#emailR').val();
     var passwordR=$('#passwordR').val();
     var confirmPasswordR=$('#confirmPasswordR').val();
@@ -113,61 +113,48 @@ function emailValidate() {
     var company=$('#company').val();
     var industryType=$('#industryType').val();
     $('#loginEmail').val('');
-    $('#errorEmail').html('');
-    $('#errorPassword').html('');
+    $('#errorEmail').text('');
+    $('#errorPassword').text('');
     $('#loginPassword').val();
-    if(emailR==''){
-      $('#errorEmailR').html('Please enter Email Id');
+    
+    if (emailR === '') {
+      $('#errorEmailR').text('Please enter Email Id');
+    } else if (emailR !== '' && !validateEmail(emailR)) {
+      $('#errorEmailR').text('Please enter Valid Email Id');
+    } else if (passwordR === '') {
+      $('#errorPasswordR').text('Please enter Password');
+    } else if ( passwordR !== '' && (!(passwordValidate(passwordR))) ) {
+     $('#errorPasswordR').text('Password must be 8 to 16 characters long');
+    } else if (confirmPasswordR === '') {
+      $('#errorConfirmPassword').text('Please enter Confirm Password');
+    } else if ( !(confirmpassword(passwordR,confirmPasswordR)) ) {
+      $('#errorConfirmPassword').text('Password not matched');
+    } else if (address1 === '') {
+      $('#errorAddress').text('Please Enter Addresss');
+    } else if (state === 0) {
+      $('#errorState').text('Please Select State ');
+    } else if (country === 0) {
+      $('#errorCountry').text('Please Select Country');
+    } else if (city === 0) {
+      $('#errorCity').text('Please Select City');
+    } else if (pincode === 0) {
+      $('#errorPincode').text('Please Select Pincode');
+    } else if (contactno === '') {
+      $('#errorContact').text('Please Enter Contact No.');
+    } else if (contactperson === '') {
+      $('#errorContactPerson').text('Please Enter Contact Person Name');
+    } else if (industryType === 0) {
+      $('#errorIndustryType').text('Please Select Industry Type');
+    } else if (company === '') {
+      $('#errorCompany').text('Please Enter Company Name');
+    } else if( contactno !== '' && (!allnumeric(contactno)) ) {
+      $('#errorContact').text('Must be Numeric')
+    } else {
+      document.forms['registerForm'].action = 'register';
+      $('#registerForm').submit();
     }
-    if(passwordR==''){
-      $('#errorPasswordR').html('Please enter Password');
-    }
-     if(confirmPasswordR==''){
-      $('#errorConfirmPassword').html('Please enter Confirm Password');
-    } 
-    if(address1==''){
-      $('#errorAddress').html('Please Enter Addresss');
-    }
-   if(state==0){
-    $('#errorState').html('Please Select State ');
-   }
-   if(country==0){
-    $('#errorCountry').html('Please Select Country');
-   }
-   if(city==0){
-    $('#errorCity').html('Please Select City');
-   }
-    if(pincode==0){
-    $('#errorPincode').html('Please Select Pincode');
-   }
-    if(contactno==''){
-    $('#errorContact').html('Please Enter Contact No.');
-   }
-    if(contactperson==''){
-    $('#errorContactPerson').html('Please Enter Contact Person Name');
-   }
-   if(industryType==0){
-    $('#errorIndustryType').html('Please Select Industry Type');
-   }
-   if(company==''){
-    $('#errorCompany').html('Please Enter Company Name');
-   }
-   if(emailR!=''){
-    if(!validateEmail(emailR)){
-       $('#errorEmailR').html('Please enter Valid Email Id');
-    }
-   }
-   if(passwordR!=='' && (!(passwordValidate(passwordR)))){
-     $('#errorPasswordR').html('Password must be 8 to 16 characters long');
-   }
-   if(!(confirmpassword(passwordR,confirmPasswordR))){
-    $('#errorConfirmPassword').html('Password not matched');
-   }
-   if(contactno!='' && (!allnumeric(contactno))){
-    $('#errorContact').html('Must be Numeric')
-   }
-
   }
+  
   function allnumeric(inputtxt){  
     var numbers = /^[-+]?[0-9]+$/;  
     if(inputtxt.match(numbers)){  
@@ -179,32 +166,40 @@ function emailValidate() {
   }  
 
   function cancelRegister(){
-     $('#errorContact').html('');
-     $('#errorContactPerson').html('');
-     $('#errorIndustryType').html('');
-     $('#errorCompany').html('');
-     $('#errorState').html('');
-     $('#errorCountry').html('');
-     $('#errorCity').html('');
-     $('#errorEmailR').html('');
-     $('#errorPasswordR').html('');
-     $('#errorConfirmPassword').html('');
-     $('#errorAddress').html('');
-     $('#errorPincode').html('');
-     $('#emailR').val('');
-     $('#passwordR').val('');
-     $('#confirmPasswordR').val('');
-     $('#contactno').val('');
-     $('#contactperson').val('');
-     $('#address1').val('');
-     $('#address3').val('');
-     $('#address2').val('');
-     $('#pincode').val('0');
-     $('#country').val('0');
-     $('#state').val('0');
-     $('#city').val('0');
-     $('#industryType').val('0');
-     $('#company').val('');
-     $("#companyRadio").prop("checked", true)
-
+    $('#errorContact').text('');
+    $('#errorContactPerson').text('');
+    $('#errorIndustryType').text('');
+    $('#errorCompany').text('');
+    $('#errorState').text('');
+    $('#errorCountry').text('');
+    $('#errorCity').text('');
+    $('#errorEmailR').text('');
+    $('#errorPasswordR').text('');
+    $('#errorConfirmPassword').text('');
+    $('#errorAddress').text('');
+    $('#errorPincode').text('');
+    $('#emailR').val('');
+    $('#passwordR').val('');
+    $('#confirmPasswordR').val('');
+    $('#contactno').val('');
+    $('#contactperson').val('');
+    $('#address1').val('');
+    $('#address3').val('');
+    $('#address2').val('');
+    $('#pincode').val('0');
+    $('#country').val('0');
+    $('#state').val('0');
+    $('#city').val('0');
+    $('#industryType').val('0');
+    $('#company').val('');
+    $("#companyRadio").prop("checked", true)
   }
+
+/* function is used to show 2 icon and hide rest 2. function will also insert value in object */
+function showHideRadio(show1, show2, hide1, hide2, object, value) {
+  $(show1).show();
+  $(show2).show();
+  $(hide1).hide();
+  $(hide2).hide();
+  $(object).val(value);
+}
