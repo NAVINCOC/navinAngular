@@ -1,6 +1,6 @@
 $.modal.defaults = {
   closeExisting: false,    // Close existing modals. Set this to false if you need to stack multiple modal instances.
-  escapeClose: true,      // Allows the user to close the modal by pressing `ESC`
+  escapeClose: false,      // Allows the user to close the modal by pressing `ESC`
   clickClose: false,       // Allows the user to close the modal by clicking the overlay
   closeText: 'Close',     // Text content for the close <a> tag.
   closeClass: '',         // Add additional class(es) to the close <a> tag.
@@ -16,42 +16,85 @@ $(function () {
   showHideRadio('#companyType1Yes', '#companyType2No', '#companyType1No', '#companyType2Yes', '#companyType', 'COMPANY');
 })
 
-function emailValidate() {
-    $('#successEmail').text("");
-  var loginEmail= $('#loginEmail').val();     
-    if (loginEmail!='' && (!validateEmail(loginEmail))) {
-      $('#errorEmail').text('Please Enter Valid Email');
-      return false;
-    }
-    else{
-      $('#errorEmail').text('');
-      headers = {
-        key: 'absinth',
-        access: 'onlycoc',
-        'x-requested-with': 'XMLHttpRequest',
-        accept: '*/*',
-        'content-type': 'application/json; charset=UTF-8'
-      };
+let validEmail = false;
+
+function resetErrors () {
+  $('#errorEmail').text('');
+  $('#successEmail').text('');
+  $('#errorLoginPassword').text('');
+  $('#errorEmailR').text('');
+  $('#errorRegisterPassword').text('');
+  $('#errorConfirmPassword').text('');
+  $('#errorAddress').text('');
+  $('#errorCountry').text('');
+  $('#errorState').text('');
+  $('#errorCity').text('');
+  $('#errorPincode').text('');
+  $('#errorContact').text('');
+  $('#errorContactPerson').text('');
+  $('#errorCompany').text('');
+  $('#errorIndustryType').text('');
+  $('#errorComapnyName').text('');
+  $('#errorEmailLogin').text('');
+  $('#successEmailLogin').text('');
+  $('#errorForgetEmail').text('');
+}
+
+function emailValidate(email, form) {
+  resetErrors ();
+  let isEmail = $(email).val();     
+  let errorMsgId;
+  let successMsgId;
+
+  if (form === 'loginForm') {
+    errorMsgId = '#errorEmail';
+    successMsgId = '#successEmail';
+  } else if (form === 'registerForm') {
+    errorMsgId = '#errorEmailR';
+  } else if (form === 'modalLoginForm') {
+    errorMsgId = '#errorEmailLogin';
+    successMsgId = '#successEmailLogin';
+  }
+  
+  if (isEmail !=='' && (!validateEmail(isEmail)) ) {
+    $(errorMsgId).text('Please enter valid Email');
+    return false;
+  } else {
+    $(errorMsgId).text('');
+    let headers = {
+      key: 'absinth',
+      access: 'onlycoc',
+      'x-requested-with': 'XMLHttpRequest',
+      accept: '*/*',
+      'content-type': 'application/json; charset=UTF-8'
+    };
     
-      data = {
-        email : loginEmail
-      };
+    let body = {
+      email : isEmail
+    };
 
     //getData('/data', headers, success, error);
 
-      postData('/verifyEmail', headers, data, function(data) {
-      	console.log("loginpage",data);
-      	if(data === 'NO') {
-			$('#errorEmail').text("Please register with this email");
-		}
-		if(data === 'YES') {
-			$('#successEmail').text("Email verified");
-		}
-      }, function (error) {
-      	console.log(error);
-      	
-      });
-    }
+    postData('/verifyEmail', headers, body, data => {
+    	console.log("loginpage", data);
+    	if (data === 'NO') {
+        validEmail = false;
+        if (form === 'loginForm' || form === 'modalLoginForm') {
+		      $(errorMsgId).text("Please register with this email");
+        } else if (form === 'registerForm') {
+        }
+		  } else if (data === 'YES') {
+        validEmail = true;
+        if (form === 'loginForm' || 'modalLoginForm') {
+			    $(successMsgId).text("Email verified");
+        } else if (form === 'registerForm') {
+          $(errorMsgId).text('Email already registered');
+        }
+		  }
+    }, error => {
+      	console.log(error.responseText);   	
+    });
+  }
 }
 
 function passwordValidate (password) {
@@ -70,37 +113,70 @@ function confirmpassword (password, confirmpassword) {
     return false;
   }
 }
+
 function validateEmail(email) {
   var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   return expr.test(email);
 };
 
-  function validateLogin(){
-    cancelRegister();
-    var loginEmail= $('#loginEmail').val(); 
-    var loginPassword= $('#loginPassword').val();  
+function validateLogin (formId){
+  resetErrors ();
+  let loginEmail; 
+  let loginPassword;  
+  let errorEmail;
+  let errorPassword;
+
+  if (formId === '#loginForm') {
+    $("#loginBtn").attr('disabled', true);
+    loginEmail = $('#loginEmail').val();
+    loginPassword = $('#loginPassword').val();
+    errorEmail = '#errorEmail';
+    errorPassword = '#errorPassword';
+  } else if (formId === '#modalLoginForm') {
+    $('#modalLoginBtn').attr('disabled', true);
+    loginEmail = $('#modalEmailLogin').val();
+    loginPassword = $('#modelPasswordLogin').val();
+    errorEmail = '#errorEmailLogin';
+  }
+
     if (loginEmail === '') {
-      $('#errorEmail').text('Please Enter Email');
-      return false;
-    } else if (loginPassword === '') {
-      $('#errorPassword').text('Please Enter Password');
+      $("#loginBtn").removeAttr('disabled');
+      $('#modalLoginBtn').removeAttr('disabled');
+      $(errorEmail).text('Please Enter Email');
       return false;
     } else if ( !validateEmail(loginEmail) ) {
-      $('#errorEmail').text('Please Enter valid Email');
+      $("#loginBtn").removeAttr('disabled');
+      $('#modalLoginBtn').removeAttr('disabled');
+      $(errorEmail).text('Please enter valid Email');
+      return false;
+    } else if ( validEmail === false ) {
+      $("#loginBtn").removeAttr('disabled');
+      $('#modalLoginBtn').removeAttr('disabled');
+      $(errorEmail).text('Please register with this email');
+      return false;
+    } else if (loginPassword === '') {
+      $("#loginBtn").removeAttr('disabled');
+      $('#modalLoginBtn').removeAttr('disabled');
+      $(errorPassword).text('Please Enter Password');
       return false;
     } else {
-      $('#errorEmail').text('');
-      $('#errorPassword').text('');
-      document.forms['loginForm'].action='login';
-      $('#loginForm').submit();
+      if (formId === '#loginForm') {
+        document.forms['loginForm'].action='login';
+        $('#loginForm').submit();
+      } else if (formId === '#modalLoginForm') {
+        document.forms['modalLoginForm'].action='login';
+        $('#modalLoginForm').submit();
+      }
     }
 
   }
 
-  function validateRegidter(){
-    var emailR=$('#emailR').val();
-    var passwordR=$('#passwordR').val();
-    var confirmPasswordR=$('#confirmPasswordR').val();
+function validateRegidter () {
+  $('#registerBtn').attr('disabled', true);
+  resetErrors ();
+    var emailR=$('#registerEmail').val();
+    var registerPassword=$('#registerPassword').val();
+    var confirmRegisterPassword=$('#confirmRegisterPassword').val();
     var address1=$('#address1').val();
     var address2=$('#address2').val();
     var address3=$('#address3').val();
@@ -118,37 +194,56 @@ function validateEmail(email) {
     $('#loginPassword').val();
     
     if (emailR === '') {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorEmailR').text('Please enter Email Id');
-    } else if (emailR !== '' && !validateEmail(emailR)) {
-      $('#errorEmailR').text('Please enter Valid Email Id');
-    } else if (passwordR === '') {
-      $('#errorPasswordR').text('Please enter Password');
-    } else if ( passwordR !== '' && (!(passwordValidate(passwordR))) ) {
-     $('#errorPasswordR').text('Password must be 8 to 16 characters long');
-    } else if (confirmPasswordR === '') {
+    } else if ( !validateEmail(emailR) ) {
+      $('#registerBtn').removeAttr('disabled');
+      $('#errorEmailR').text('Please enter valid Email');
+    } else if ( validEmail === true ) {
+      $('#registerBtn').removeAttr('disabled');
+      $('#errorEmailR').text('Email already registered');
+    } else if (registerPassword === '') {
+      $('#registerBtn').removeAttr('disabled');
+      $('#errorRegisterPassword').text('Please enter Password');
+    } else if ( registerPassword !== '' && (!(passwordValidate(registerPassword))) ) {
+      $('#registerBtn').removeAttr('disabled');
+     $('#errorRegisterPassword').text('Atleast 6 and maximum 15 characters');
+    } else if (confirmRegisterPassword === '') {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorConfirmPassword').text('Please enter Confirm Password');
-    } else if ( !(confirmpassword(passwordR,confirmPasswordR)) ) {
+    } else if ( !(confirmpassword(registerPassword,confirmRegisterPassword)) ) {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorConfirmPassword').text('Password not matched');
     } else if (address1 === '') {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorAddress').text('Please Enter Addresss');
-    } else if (state === 0) {
+    } else if (state === '') {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorState').text('Please Select State ');
-    } else if (country === 0) {
+    } else if (country === '') {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorCountry').text('Please Select Country');
-    } else if (city === 0) {
+    } else if (city === '') {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorCity').text('Please Select City');
-    } else if (pincode === 0) {
+    } else if (pincode === '') {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorPincode').text('Please Select Pincode');
     } else if (contactno === '') {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorContact').text('Please Enter Contact No.');
     } else if (contactperson === '') {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorContactPerson').text('Please Enter Contact Person Name');
     } else if (industryType === 0) {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorIndustryType').text('Please Select Industry Type');
     } else if (company === '') {
+      $('#registerBtn').removeAttr('disabled');
       $('#errorCompany').text('Please Enter Company Name');
     } else if( contactno !== '' && (!allnumeric(contactno)) ) {
-      $('#errorContact').text('Must be Numeric')
+      $('#registerBtn').removeAttr('disabled');
+      $('#errorContact').text('Must be Numeric');
     } else {
       document.forms['registerForm'].action = 'register';
       $('#registerForm').submit();
@@ -165,34 +260,22 @@ function validateEmail(email) {
     }  
   }  
 
-  function cancelRegister(){
-    $('#errorContact').text('');
-    $('#errorContactPerson').text('');
-    $('#errorIndustryType').text('');
-    $('#errorCompany').text('');
-    $('#errorState').text('');
-    $('#errorCountry').text('');
-    $('#errorCity').text('');
-    $('#errorEmailR').text('');
-    $('#errorPasswordR').text('');
-    $('#errorConfirmPassword').text('');
-    $('#errorAddress').text('');
-    $('#errorPincode').text('');
-    $('#emailR').val('');
-    $('#passwordR').val('');
-    $('#confirmPasswordR').val('');
+  function resetSignUp () {
+    $('#registerEmail').val('');
+    $('#registerPassword').val('');
+    $('#confirmRegisterPassword').val('');
     $('#contactno').val('');
     $('#contactperson').val('');
     $('#address1').val('');
     $('#address3').val('');
     $('#address2').val('');
-    $('#pincode').val('0');
-    $('#country').val('0');
-    $('#state').val('0');
-    $('#city').val('0');
-    $('#industryType').val('0');
+    $('#pincode').val('');
+    $('#country').val('INDIA');
+    $('#state').val('DELHI');
+    $('#city').val('EAST DELHI');
+    $('#industryType').val('1');
     $('#company').val('');
-    $("#companyRadio").prop("checked", true)
+    showHideRadio('#companyType1Yes', '#companyType2No', '#companyType1No', '#companyType2Yes', '#companyType', 'COMPANY');
   }
 
 /* function is used to show 2 icon and hide rest 2. function will also insert value in object */
@@ -202,4 +285,10 @@ function showHideRadio(show1, show2, hide1, hide2, object, value) {
   $(hide1).hide();
   $(hide2).hide();
   $(object).val(value);
+}
+
+function closeModal (modalId) {
+  resetErrors ();
+  resetSignUp ();
+  $(modalId).click();
 }
