@@ -6,7 +6,6 @@ var router = require('./router');
 var colors = require('colors');
 var session = require('express-session');
 
-
 colors.setTheme({
   silly: 'rainbow',
   input: 'grey',

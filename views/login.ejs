@@ -30,8 +30,8 @@
               </div>
             </div>
             <div class="col-sm-12">
-              <span class="error" id="errorEmail"><%=error%></span>
-              <span class="success" id="successEmail"></span>
+              <span class="error" id="errorEmail"></span>
+              <span class="success" id="successEmail"><% if(error!==''){ %>Email verified <% } %></span>
             </div>
           </div>
           <div class="col-sm-5 paddingLeft0">
@@ -42,12 +42,12 @@
                 <input type="password" id="loginPassword" name="loginPassword" class="form-control" />
               </div>
             </div>
-            <div class="col-sm-12"><span class="error" id="errorLoginPassword"></span></div>
+            <div class="col-sm-12"><span class="error" id="errorLoginPassword"><%=error%></span></div>
           </div>
           <div class="col-sm-2 paddingLeft0 paddingRight0">
             <div class="col-sm-12 height20"></div>
             <div class="col-sm-12">
-              <input type="submit" class="btn btn-primary form-control" id="loginBtn" name="Login" value="Login" onclick="validateLogin('#loginForm');" />
+              <input type="button" class="btn btn-primary form-control" id="loginBtn" name="Login" value="Login" onclick="validateLogin('#loginForm');" />
             </div>
           </div>
         </div>
@@ -146,7 +146,17 @@
             </div>  
             <div class="col-sm-12 height11"></div>
             <div class="col-sm-12 font">
-              <div class="col-sm-4">
+               <div class="col-sm-4">
+                <div class="col-sm-12"><span>Pin Code</span></div>
+                <div class="col-sm-12">
+                  <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-qrcode" aria-hidden="true"></i></div>
+                    <input class="form-control" type="text" name="pincode" id="pincode" maxlength="6">
+                  </div>
+                </div>
+                <div class="col-sm-12"><span class="error" id="errorPincode"></span></div>
+              </div>
+             <!-- <div class="col-sm-4">
                 <div class="col-sm-12"><span>Country</span></div>
                 <div class="col-sm-12">
                   <div class="input-group">
@@ -157,22 +167,52 @@
                   </div>
                 </div>
                 <div class="col-sm-12"><span class="error" id="errorCountry"></span></div>
-              </div>
+              </div>-->
               <div class="col-sm-4">
                 <div class="col-sm-12"><span>State</span></div>
                 <div class="col-sm-12">
                   <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-road" aria-hidden="true"></i></div>
-                    <select class="form-control" id="state" name="state">
-                      <option value="DELHI" selected>DELHI</option>
-                      <option value="ANDRA PRADESH">ANDRA PRADESH</option>
-                      <option value="BIHAR">BIHAR</option>    
-                      <option value="GOA">GOA</option>
-                      <option value="JAMU KASHMIR">JAMU & KASHMIR</option>
-                      <option value="JHARKHAND">JHARKHAND</option>
-                      <option value="KARNATAKA">KARNATAKA</option>
-                    </select>
-                  </div>
+                    <select class="form-control location" id="state" name="state">
+                  	<option value="" selected="selected" disable="" style="display:none">State</option>
+					<option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+					<option value="Andhra Pradesh">Andhra Pradesh</option>
+					<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+					<option value="Assam">Assam</option>
+					<option value="Bihar">Bihar</option>
+					<option value="Chandigarh">Chandigarh</option>
+					<option value="Chattisgarh">Chattisgarh</option>
+					<option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+					<option value="Daman and Diu">Daman and Diu</option>
+					<option value="Delhi">Delhi</option>
+					<option value="Goa">Goa</option>
+					<option value="Gujarat">Gujarat</option>
+					<option value="Haryana">Haryana</option>
+					<option value="Himachal Pradesh">Himachal Pradesh</option>
+					<option value="Jammu and Kashmir">Jammu and Kashmir</option>
+					<option value="Jharkhand">Jharkhand</option>
+					<option value="Karnataka">Karnataka</option>
+					<option value="Kerala">Kerala</option>
+					<option value="Lakshadweep">Lakshadweep</option>
+					<option value="Madhya Pradesh">Madhya Pradesh</option>
+					<option value="Maharashtra">Maharashtra</option>
+					<option value="Manipur">Manipur</option>
+					<option value="Meghalaya">Meghalaya</option>
+					<option value="Mizoram">Mizoram</option>
+					<option value="Nagaland">Nagaland</option>
+					<option value="Odisha">Odisha</option>
+					<option value="Puducherry">Puducherry</option>
+					<option value="Punjab">Punjab</option>
+					<option value="Rajasthan">Rajasthan</option>
+					<option value="Sikkim">Sikkim</option>
+					<option value="Tamil Nadu">Tamil Nadu</option>
+					<option value="Telangana">Telangana</option>
+					<option value="Tripura">Tripura</option>
+					<option value="Uttar Pradesh">Uttar Pradesh</option>
+					<option value="Uttarakhand">Uttarakhand</option>
+					<option value="West Bengal">West Bengal</option>
+					</select>
+                   </div>
                 </div>
                 <div class="col-sm-12"><span class="error" id="errorState"></span></div>
               </div>
@@ -181,13 +221,14 @@
                 <div class="col-sm-12">
                   <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-road" aria-hidden="true"></i></div>
-                    <select class="form-control" id="city" name="city">
+                    <input type="text" name="city" class="form-control" id="city" size="30" value="" maxlength="30">
+                    <!--<select class="form-control" id="city" name="city">
                       <option value="EAST DELHI" selected>EAST DELHI</option>
                       <option value="PATNA">PATNA</option>
                       <option value="GOA">GOA</option>
                       <option value="JAMU">JAMU</option>
                       <option value="LAH">LAH</option>    
-                    </select>
+                    </select>-->
                   </div>
                 </div>
                 <div class="col-sm-12"><span class="error" id="errorCity"></span></div>
@@ -195,16 +236,16 @@
             </div>  
             <div class="col-sm-12 height25"></div>
             <div class="col-sm-12 font">
-              <div class="col-sm-4">
+           <!--   <div class="col-sm-4">
                 <div class="col-sm-12"><span>Pin Code</span></div>
                 <div class="col-sm-12">
                   <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-qrcode" aria-hidden="true"></i></div>
-                    <input class="form-control" type="text" name="pincode" maxlength="6">
+                    <input class="form-control" type="text" name="pincode" id="pincode" maxlength="6">
                   </div>
                 </div>
                 <div class="col-sm-12"><span class="error" id="errorPincode"></span></div>
-              </div>
+              </div>-->
               <div class="col-sm-4">
                 <div class="col-sm-12"><span>Contact No.</span></div>
                 <div class="col-sm-12"> 

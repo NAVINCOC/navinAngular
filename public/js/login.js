@@ -12,15 +12,41 @@ $.modal.defaults = {
   fadeDelay: 1.0          // Point during the overlay's fade-in that the modal begins to fade in (.5 = 50%, 1.5 = 150%, etc.)
 };
 
+let validEmail = false;
+
 $(function () {
+  if ($('#errorLoginPassword').text().length > 0) {
+    validEmail = true;
+  }
   showHideRadio('#companyType1Yes', '#companyType2No', '#companyType1No', '#companyType2Yes', '#companyType', 'COMPANY');
 })
 
-let validEmail = false;
+// call api for city and state
+
+	$('#pincode').blur(function(){
+			var value = $.trim($(this).val());
+			let headers = {
+			'x-requested-with': 'XMLHttpRequest',
+			accept: '*/*',
+			'content-type': 'application/json; charset=UTF-8'
+			};
+			getData("https://cart.paytm.com/v1/pincode/" + value, headers, data => {
+			$('#city').val(data.city);
+			var selectedState=$('#state').val(data.state);
+			var selectedState = $(".location option:selected").val();
+			
+			}, error => {
+			  	console.log(error.responseText);   	
+			});
+	});
+
+// end api
 
 function resetErrors () {
+  if(validEmail === false){
+  	$('#successEmail').text('');
+  }
   $('#errorEmail').text('');
-  $('#successEmail').text('');
   $('#errorLoginPassword').text('');
   $('#errorEmailR').text('');
   $('#errorRegisterPassword').text('');
@@ -79,13 +105,15 @@ function emailValidate(email, form) {
     	console.log("loginpage", data);
     	if (data === 'NO') {
         validEmail = false;
+         console.log("login No",validEmail);
         if (form === 'loginForm' || form === 'modalLoginForm') {
 		      $(errorMsgId).text("Please register with this email");
         } else if (form === 'registerForm') {
         }
 		  } else if (data === 'YES') {
         validEmail = true;
-        if (form === 'loginForm' || 'modalLoginForm') {
+         console.log("login yes",validEmail);
+        if (form === 'loginForm' || form === 'modalLoginForm') {
 			    $(successMsgId).text("Email verified");
         } else if (form === 'registerForm') {
           $(errorMsgId).text('Email already registered');
@@ -131,13 +159,14 @@ function validateLogin (formId){
     loginEmail = $('#loginEmail').val();
     loginPassword = $('#loginPassword').val();
     errorEmail = '#errorEmail';
-    errorPassword = '#errorPassword';
+    errorPassword = '#errorLoginPassword';
   } else if (formId === '#modalLoginForm') {
     $('#modalLoginBtn').attr('disabled', true);
     loginEmail = $('#modalEmailLogin').val();
     loginPassword = $('#modelPasswordLogin').val();
     errorEmail = '#errorEmailLogin';
   }
+  console.log("login form sub",validEmail);
 
     if (loginEmail === '') {
       $("#loginBtn").removeAttr('disabled');
@@ -192,6 +221,7 @@ function validateRegidter () {
     $('#errorEmail').text('');
     $('#errorPassword').text('');
     $('#loginPassword').val();
+    console.log('pincode',pincode);
     
     if (emailR === '') {
       $('#registerBtn').removeAttr('disabled');
@@ -228,7 +258,10 @@ function validateRegidter () {
       $('#errorCity').text('Please Select City');
     } else if (pincode === '') {
       $('#registerBtn').removeAttr('disabled');
-      $('#errorPincode').text('Please Select Pincode');
+      $('#errorPincode').text('Please enter Pincode');
+    } else if (pincode.length < 6) {
+      $('#registerBtn').removeAttr('disabled');
+      $('#errorPincode').text('Enter valid Pincode');
     } else if (contactno === '') {
       $('#registerBtn').removeAttr('disabled');
       $('#errorContact').text('Please Enter Contact No.');

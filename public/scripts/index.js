@@ -42,7 +42,7 @@ module.exports = {
         if (err) { console.log('error'.error, err)}
         else if(JSON.parse(body).length > 0) {
         	console.log(body);
-        		sess= req.session;
+        		
     			console.log("login verify response:",body);
     			body= JSON.parse(body);
     			console.log("sess-body",body);	
@@ -57,7 +57,7 @@ module.exports = {
 				res.redirect('/');
 		}
 		else if(JSON.parse(body).length == 0){
-				res.render('login', {email: req.body.loginEmail, error: "Invalid Email or password"});
+				res.render('login', {email: req.body.loginEmail, error: "Invalid password"});
 		}
         
     });
@@ -84,6 +84,7 @@ module.exports = {
     });
   },
   register: function(req, res) { console.log("123",req.body);
+  
   	var options = {
       url: 'http://127.0.0.1:2318/v1/register',
       method: 'POST',
@@ -95,14 +96,30 @@ module.exports = {
     };
     
     request(options, function(err, response, body) {
-        if (err) {console.log('error    '.error, err);}
-        /*else if(body[0] === '[')
-        {*/
+    	console.log('error gtgfgggg          '.error, response.statusCode	)
+      if (err) { console.log('error'.error, err)}
+      	else if(response.statusCode !== 200){
+				res.redirect('/error');
+		}
+        else if(JSON.parse(body).length > 0) {
         	console.log(body);
-        	body=JSON.parse(body);
-			res.status(200).send(body);
-		/*} */      
-        
+        		
+    			console.log("login verify response:",body);
+    			body= JSON.parse(body);
+    			console.log("sess-body",body);	
+    			sess= req.session;
+    			sess.email=body[0].emailId;
+    			sess.name = body[0].firstName;
+    			sess.contact = body[0].contactNo;
+    			sess.id = body[0].id;
+    			sess.isValidated = body[0].isValidated;
+    			sess.isActive  = body[0].isActive;
+    			console.log("sess2",sess);
+				res.redirect('/');
+		}
+		else if(JSON.parse(body).length == 0){
+				res.render('login', {email: req.body.loginEmail, error: "Invalid password"});
+		}
     });
   },
   logout: function(req,res) {
