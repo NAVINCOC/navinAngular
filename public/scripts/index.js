@@ -7,8 +7,7 @@ module.exports = {
   	sess=req.session;
   	console.log("sess",sess);
   	if(sess.email) {
-  		
-		 res.render('index');
+  		 res.render('index');
 	}
 	else {
 		res.redirect('/login');
@@ -120,6 +119,27 @@ module.exports = {
 		else if(JSON.parse(body).length == 0){
 				res.render('login', {email: req.body.loginEmail, error: "Invalid password"});
 		}
+    });
+  },
+ forgetEmail: function(req, res) {
+  	var data=req.body;
+    var options = {
+      url: 'http://127.0.0.1:2318/v1/forgetEmail',
+      method: 'POST',
+      headers: {
+        key: 'NAVNIV',
+        userid: '2318'
+      },
+      form: data
+    };
+    console.log('option:',options);
+    request(options, function(err, response, body) {
+        if (err) {console.log('error    '.error, err);
+          res.status(400).send(err);
+        } else {
+        	console.log("forget api resp:",body);
+        	res.status(200).send(body);
+        }
     });
   },
   logout: function(req,res) {

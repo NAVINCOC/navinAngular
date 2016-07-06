@@ -22,8 +22,8 @@ var headers = '' +
 	'</head>' +
 	'<body>';
 
-var footer = '' +
-		'<div class="height25 bottom0 pFixed bColorYellow tColorBlack tAlignCenter maxWidth">Black & Yellow Inc.</div>' +
+var footer = '' + '<div class="text-center"><img src="images/404.png" alt="error"/></div>' +
+		/*'<div class="height25 bottom0 pFixed bColorYellow tColorBlack tAlignCenter maxWidth">Black & Yellow Inc.</div>' +*/
 	'</body>' +
 '</html>';
 

@@ -11,6 +11,8 @@ module.exports = function(app) {
   app.post('/verifyEmail', user.verifyEmail);
 
   app.post('/register', user.register);
+  
+  app.post('/forgetEmail', user.forgetEmail);
 
   app.get('/logout', user.logout);
 

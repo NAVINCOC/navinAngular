@@ -80,8 +80,14 @@ function emailValidate(email, form) {
   } else if (form === 'modalLoginForm') {
     errorMsgId = '#errorEmailLogin';
     successMsgId = '#successEmailLogin';
+  } else if (form === 'modalForgetEmail') {
+    errorMsgId = '#errorForgetEmail';
+    //successMsgId = '#successEmailLogin';
   }
-  
+  if(isEmail == "") {
+  	$(errorMsgId).text('Please Enter Email');
+  	return false;
+  }
   if (isEmail !=='' && (!validateEmail(isEmail)) ) {
     $(errorMsgId).text('Please enter valid Email');
     return false;
@@ -106,7 +112,7 @@ function emailValidate(email, form) {
     	if (data === 'NO') {
         validEmail = false;
          console.log("login No",validEmail);
-        if (form === 'loginForm' || form === 'modalLoginForm') {
+        if (form === 'loginForm' || form === 'modalLoginForm' || form === 'modalForgetEmail') {
 		      $(errorMsgId).text("Please register with this email");
         } else if (form === 'registerForm') {
         }
@@ -146,6 +152,50 @@ function validateEmail(email) {
   var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   return expr.test(email);
 };
+
+function validateForgetEmail (formName)
+{
+	let forgetEmail;
+	//let errorForgetEmail;
+	forgetEmail= $("#forgetEmail").val();
+	//errorForgetEmail=$("#errorForgetEmail").val();
+	if(forgetEmail == "") {
+		$("#errorForgetEmail").text('Please Enter Email');
+		return false;
+	}
+	else if(forgetEmail !== "" && $("#errorForgetEmail").text().length === 0) {
+		let headers = {
+      key: 'absinth',
+      access: 'onlycoc',
+      'x-requested-with': 'XMLHttpRequest',
+      accept: '*/*',
+      'content-type': 'application/json; charset=UTF-8'
+    };
+    
+    let body = {
+      email : forgetEmail
+    };
+
+    //getData('/data', headers, success, error);
+
+    postData('/forgetEmail', headers, body, data => {
+    	console.log("check here",data);
+    	if (data === 'NO') {
+     		$('errorForgetEmail').text("Submit again");
+		  } else if (data === 'YES') {
+       
+         // $(errorMsgId).text('Email already registered');
+        	 $('successForgetEmail').text("Login details sent on your email-id");
+		  }
+    }, error => {
+      	console.log(error.responseText);   	
+    });
+	}
+	else {
+		return false;
+	}
+	console.log("asfaf");
+}
 
 function validateLogin (formId){
   resetErrors ();

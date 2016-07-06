@@ -388,21 +388,22 @@
         <span>Send Password</span>
       </div>
       <div class="col-sm-12">
+       <form name="modalForgetEmail" id="modalForgetEmail" method="post">
         <div class="col-sm-12 height25"></div>
         <div class="col-sm-12 font">
           <div class="col-sm-12"><span>Email</span></div>
           <div class="col-sm-12">
             <div class="input-group">
               <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-              <input type="text" class="form-control " id="forgetEmail" name="forgetEmail"/>
+              <input type="text" class="form-control " id="forgetEmail" name="forgetEmail" onfocusout="emailValidate('#forgetEmail', 'modalForgetEmail')"/>
             </div>
           </div>
-          <div class="col-sm-12"><span class="error" id="errorForgetEmail"></span></div>
+          <div class="col-sm-12"><span class="error" id="errorForgetEmail"></span><span class="success" id="successForgetEmail"></span></div>
         </div>
         <div class="col-sm-12 height20"></div>
         <div class="col-sm-12 font">
           <div class="col-sm-5 col-sm-offset-1">
-            <input type="button" class="btn btn-primary form-control" name="Submit" value="Mail Me"/>
+            <input type="button" class="btn btn-primary form-control" name="Submit" value="Mail Me" onclick="validateForgetEmail('modalForgetEmail');"/>
           </div>
           <div class="col-sm-5">
             <input type="button" class="btn btn-warning form-control" value="Cancel" onclick="closeModal('#forgetModalClose');">
@@ -410,6 +411,7 @@
           </div>
         </div>
         <div class="col-sm-12 height25"></div>
+        </form>
       </div>
     </div>
     <script src='min/js/jQuery.min.js'></script>
