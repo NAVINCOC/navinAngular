@@ -1,3 +1,8 @@
+//Make sure jQuery has been loaded before login.js
+if (typeof jQuery === "undefined") {
+  throw new Error("service requires jQuery");
+}
+
 $.modal.defaults = {
   closeExisting: false,    // Close existing modals. Set this to false if you need to stack multiple modal instances.
   escapeClose: false,      // Allows the user to close the modal by pressing `ESC`
@@ -14,7 +19,7 @@ $.modal.defaults = {
 
 let validEmail = false;
 
-$(function () {
+$( () => {
   if ($('#errorLoginPassword').text().length > 0) {
     validEmail = true;
   }
@@ -23,26 +28,25 @@ $(function () {
 
 // call api for city and state
 
-	$('#pincode').blur(function(){
-			var value = $.trim($(this).val());
-			let headers = {
-			'x-requested-with': 'XMLHttpRequest',
-			accept: '*/*',
-			'content-type': 'application/json; charset=UTF-8'
-			};
-			getData("https://cart.paytm.com/v1/pincode/" + value, headers, data => {
-			$('#city').val(data.city);
-			var selectedState=$('#state').val(data.state);
-			var selectedState = $(".location option:selected").val();
-			
-			}, error => {
-			  	console.log(error.responseText);   	
-			});
-	});
+$('#pincode').blur( () => {
+  let value = $.trim($('#pincode').val());
+  let headers = {
+    'x-requested-with': 'XMLHttpRequest',
+    accept: '*/*',
+    'content-type': 'application/json; charset=UTF-8'
+  };
+  getData("https://cart.paytm.com/v1/pincode/" + value, headers, data => {
+    $('#city').val(data.city);
+    let selectedState = $('#state').val(data.state);
+    selectedState = $(".location option:selected").val();
+  }, error => {
+    console.log(error);   	
+  });
+});
 
 // end api
 
-function resetErrors () {
+let resetErrors = () => {
   if(validEmail === false){
   	$('#successEmail').text('');
   }
@@ -66,7 +70,7 @@ function resetErrors () {
   $('#errorForgetEmail').text('');
 }
 
-function emailValidate(email, form) {
+let emailValidate = (email, form) => {
   resetErrors ();
   let isEmail = $(email).val();     
   let errorMsgId;
@@ -131,7 +135,7 @@ function emailValidate(email, form) {
   }
 }
 
-function passwordValidate (password) {
+let passwordValidate = (password) => {
   if(password.length < 6 || password.length > 15){
     return false;
   }
@@ -140,7 +144,7 @@ function passwordValidate (password) {
   }
 }
 
-function confirmpassword (password, confirmpassword) {
+let confirmpassword = (password, confirmpassword) => {
   if (password === confirmpassword) {
     return true;
   } else {
@@ -148,23 +152,21 @@ function confirmpassword (password, confirmpassword) {
   }
 }
 
-function validateEmail(email) {
-  var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+let validateEmail = (email) => {
+  let expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
   return expr.test(email);
 };
 
-function validateForgetEmail (formName)
-{
-	let forgetEmail;
-	//let errorForgetEmail;
-	forgetEmail= $("#forgetEmail").val();
-	//errorForgetEmail=$("#errorForgetEmail").val();
-	if(forgetEmail == "") {
-		$("#errorForgetEmail").text('Please Enter Email');
-		return false;
-	}
-	else if(forgetEmail !== "" && $("#errorForgetEmail").text().length === 0) {
-		let headers = {
+let validateForgetEmail = (formName) => {
+  $('#frogetBtn').attr('disabled', true);
+  let forgetEmail;
+  forgetEmail= $("#forgetEmail").val();
+  if(forgetEmail === "") {
+    $("#errorForgetEmail").text('Please Enter Email');
+    $('#frogetBtn').removeAttr('disabled');
+    return false;
+  } else if (forgetEmail !== "" && $("#errorForgetEmail").text().length === 0) {
+    let headers = {
       key: 'absinth',
       access: 'onlycoc',
       'x-requested-with': 'XMLHttpRequest',
@@ -179,24 +181,27 @@ function validateForgetEmail (formName)
     //getData('/data', headers, success, error);
 
     postData('/forgetEmail', headers, body, data => {
-    	console.log("check here",data);
-    	if (data === 'NO') {
-     		$('#errorForgetEmail').text("Submit again");
-		  } else if (data === 'YES') {
-       
-         // $(errorMsgId).text('Email already registered');
-        	 $('#successForgetEmail').text("Login details sent on your email-id");
-		  }
+      console.log("check here",data);
+      if (data === 'NO') {
+        $('#errorForgetEmail').text("Submit again");
+      } else if (data === 'YES') {
+        setTimeout( () => {
+          $('#forgetModalClose').click();
+          $('#frogetBtn').removeAttr('disabled');
+        } , 5000);
+        $('#successForgetEmail').text("Login details sent on your email-id");
+      }
     }, error => {
-      	console.log(error.responseText);   	
+      console.log(error.responseText);
+      $('#frogetBtn').removeAttr('disabled');
     });
-	}
-	else {
-		return false;
-	}
+  } else {
+    $('#frogetBtn').removeAttr('disabled');
+    return false;
+  }
 }
 
-function validateLogin (formId){
+let validateLogin = (formId) => {
   resetErrors ();
   let loginEmail; 
   let loginPassword;  
@@ -217,55 +222,54 @@ function validateLogin (formId){
   }
   console.log("login form sub",validEmail);
 
-    if (loginEmail === '') {
-      $("#loginBtn").removeAttr('disabled');
-      $('#modalLoginBtn').removeAttr('disabled');
-      $(errorEmail).text('Please Enter Email');
-      return false;
-    } else if ( !validateEmail(loginEmail) ) {
-      $("#loginBtn").removeAttr('disabled');
-      $('#modalLoginBtn').removeAttr('disabled');
-      $(errorEmail).text('Please enter valid Email');
-      return false;
-    } else if ( validEmail === false ) {
-      $("#loginBtn").removeAttr('disabled');
-      $('#modalLoginBtn').removeAttr('disabled');
-      $(errorEmail).text('Please register with this email');
-      return false;
-    } else if (loginPassword === '') {
-      $("#loginBtn").removeAttr('disabled');
-      $('#modalLoginBtn').removeAttr('disabled');
-      $(errorPassword).text('Please Enter Password');
-      return false;
-    } else {
-      if (formId === '#loginForm') {
-        document.forms['loginForm'].action='login';
-        $('#loginForm').submit();
-      } else if (formId === '#modalLoginForm') {
-        document.forms['modalLoginForm'].action='login';
-        $('#modalLoginForm').submit();
-      }
+  if (loginEmail === '') {
+    $("#loginBtn").removeAttr('disabled');
+    $('#modalLoginBtn').removeAttr('disabled');
+    $(errorEmail).text('Please Enter Email');
+    return false;
+  } else if ( !validateEmail(loginEmail) ) {
+    $("#loginBtn").removeAttr('disabled');
+    $('#modalLoginBtn').removeAttr('disabled');
+    $(errorEmail).text('Please enter valid Email');
+    return false;
+  } else if ( validEmail === false ) {
+    $("#loginBtn").removeAttr('disabled');
+    $('#modalLoginBtn').removeAttr('disabled');
+     $(errorEmail).text('Please register with this email');
+    return false;
+  } else if (loginPassword === '') {
+    $("#loginBtn").removeAttr('disabled');
+    $('#modalLoginBtn').removeAttr('disabled');
+    $(errorPassword).text('Please Enter Password');
+    return false;
+  } else {
+    if (formId === '#loginForm') {
+      document.forms['loginForm'].action='login';
+      $('#loginForm').submit();
+    } else if (formId === '#modalLoginForm') {
+      document.forms['modalLoginForm'].action='login';
+       $('#modalLoginForm').submit();
     }
-
   }
+}
 
-function validateRegidter () {
+let validateRegidter = () => {
   $('#registerBtn').attr('disabled', true);
   resetErrors ();
-    var emailR=$('#registerEmail').val();
-    var registerPassword=$('#registerPassword').val();
-    var confirmRegisterPassword=$('#confirmRegisterPassword').val();
-    var address1=$('#address1').val();
-    var address2=$('#address2').val();
-    var address3=$('#address3').val();
-    var country=$('#country').val();
-    var state=$('#state').val();
-    var city=$('#city').val();
-    var pincode=$('#pincode').val();
-    var contactno=$('#contactno').val();
-    var contactperson=$('#contactperson').val();
-    var company=$('#company').val();
-    var industryType=$('#industryType').val();
+    let emailR=$('#registerEmail').val();
+    let registerPassword=$('#registerPassword').val();
+    let confirmRegisterPassword=$('#confirmRegisterPassword').val();
+    let address1=$('#address1').val();
+    let address2=$('#address2').val();
+    let address3=$('#address3').val();
+    let country=$('#country').val();
+    let state=$('#state').val();
+    let city=$('#city').val();
+    let pincode=$('#pincode').val();
+    let contactno=$('#contactno').val();
+    let contactperson=$('#contactperson').val();
+    let company=$('#company').val();
+    let industryType=$('#industryType').val();
     $('#loginEmail').val('');
     $('#errorEmail').text('');
     $('#errorPassword').text('');
@@ -332,36 +336,35 @@ function validateRegidter () {
     }
   }
   
-  function allnumeric(inputtxt){  
-    var numbers = /^[-+]?[0-9]+$/;  
-    if(inputtxt.match(numbers)){  
-      return true;  
-    }  
-    else {  
-      return false;  
-    }  
+let allnumeric = (inputtxt) => {  
+  let numbers = /^[-+]?[0-9]+$/;  
+  if(inputtxt.match(numbers)){  
+    return true;  
+  } else {  
+    return false;  
   }  
+}  
 
-  function resetSignUp () {
-    $('#registerEmail').val('');
-    $('#registerPassword').val('');
-    $('#confirmRegisterPassword').val('');
-    $('#contactno').val('');
-    $('#contactperson').val('');
-    $('#address1').val('');
-    $('#address3').val('');
-    $('#address2').val('');
-    $('#pincode').val('');
-    $('#country').val('INDIA');
-    $('#state').val('DELHI');
-    $('#city').val('EAST DELHI');
-    $('#industryType').val('1');
-    $('#company').val('');
-    showHideRadio('#companyType1Yes', '#companyType2No', '#companyType1No', '#companyType2Yes', '#companyType', 'COMPANY');
-  }
+let resetSignUp = () => {
+  $('#registerEmail').val('');
+  $('#registerPassword').val('');
+  $('#confirmRegisterPassword').val('');
+  $('#contactno').val('');
+  $('#contactperson').val('');
+  $('#address1').val('');
+  $('#address3').val('');
+  $('#address2').val('');
+  $('#pincode').val('');
+  $('#country').val('INDIA');
+  $('#state').val('');
+  $('#city').val('');
+  $('#industryType').val('1');
+  $('#company').val('');
+  showHideRadio('#companyType1Yes', '#companyType2No', '#companyType1No', '#companyType2Yes', '#companyType', 'COMPANY');
+}
 
 /* function is used to show 2 icon and hide rest 2. function will also insert value in object */
-function showHideRadio(show1, show2, hide1, hide2, object, value) {
+let showHideRadio = (show1, show2, hide1, hide2, object, value) => {
   $(show1).show();
   $(show2).show();
   $(hide1).hide();
@@ -369,7 +372,7 @@ function showHideRadio(show1, show2, hide1, hide2, object, value) {
   $(object).val(value);
 }
 
-function closeModal (modalId) {
+let closeModal = (modalId) => {
   resetErrors ();
   resetSignUp ();
   $(modalId).click();

@@ -16,6 +16,8 @@ module.exports = function(app) {
   
   app.get('/otp', user.otp);
 
+  app.post('/otp', user.varifyOtp);
+
   app.get('/logout', user.logout);
 
   app.get('/error', error);

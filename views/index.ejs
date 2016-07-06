@@ -12,8 +12,8 @@
   </head>
   <body ng-app="dashboard">
     <header ng-controller="appHeader" id="header" class="header" ng-click="change();">{{header}}</header>
-    <aside ng-controller="appLeftbar" id="leftBar" class="leftBar"><i class="fa fa-anchor"></i>Manage User</aside>
-    <div ng-controller="appBody" id="body" class="body">
+    <aside ng-controller="appLeftbar" id="leftBar" class="leftBar col-sm-3"><i class="fa fa-anchor"></i>Manage User</aside>
+    <div ng-controller="appBody" id="body" class="body col-sm-7">
         <i class="fa fa-hand-o-up"></i>this
         <div ng-bind="data"></div>
         <input type="button" ng-click="click();" name="" value="CLICK">

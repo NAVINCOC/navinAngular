@@ -4,7 +4,7 @@ if (typeof jQuery === "undefined") {
   throw new Error("service requires jQuery");
 }
 
-function getData (url, headers, cbSuccess, cbError) {
+let getData = (url, headers, cbSuccess, cbError) => {
   $.ajax({
     url: url,
     type: 'GET',
@@ -14,7 +14,7 @@ function getData (url, headers, cbSuccess, cbError) {
   });
 }
 
-function postData (url, headers, data, cbSuccess, cbError) {
+let postData = (url, headers, data, cbSuccess, cbError) => {
   $.ajax({
     url: url,
     type: 'POST',

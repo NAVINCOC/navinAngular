@@ -7,14 +7,14 @@ app.controller('appBody', [
 
     $scope.data = 'CLICK to get response from api';
     
-    $scope.success = function (data) {
+    $scope.success = (data) => {
         data = JSON.parse(data);
         $scope.data = data.name + ' ' + data.last;
         console.log('success   ', $scope.data);
         $("#header").click();
     };
 
-    $scope.error = function (error) {
+    $scope.error = (error) => {
       console.log('error   ', error);
     }
     
