@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    
+    <link rel="stylesheet" type="text/css" href="/min/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/min/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="/min/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="min/css/ngCropper.all.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/customStyle.css" />
+     <link rel="stylesheet" type="text/css" href="/css/jquery.modal.css" />
+    <link rel="icon" href="logo.jpg" />
+    <title>Login / Sign-Up</title>
+  </head>
+  <body class="loginBody">
+    <div class="col-sm-12 font tColorWhite">
+      <div class="col-sm-12 height11"></div>
+      <div class="col-sm-6">        
+        <h2>Polestar Solutions</h2>
+      </div>
+      
+      <!-- otp form -->
+      <form name="otpForm" id="otpForm" method="get">
+        <div class="col-sm-7 mLeft38 font tColorWhite mTop14">
+          <div class="col-sm-6  paddingLeft0">
+            <div class="col-sm-12"><span>OTP</span></div>
+            <div class="col-sm-12">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></div> 
+                <input id="otp" type="text" name="otp" class="form-control " maxlength="6" />
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <span onclick="resendOtp();">Resend OTP</span>
+            </div>
+          </div>
+          <div class="col-sm-12 height11"></div>
+          <div class="col-sm-3 mLeft12 paddingLeft0 paddingRight0">
+            <div class="col-sm-12">
+              <input type="button" class="btn btn-primary form-control" id="otpVerifyBtn" name="otpVerifyBtn" value="Verify Email" onclick="validateOtp('#otp');" />
+            </div>
+          </div>
+          <div class="col-sm-12"></div>
+          <div class="col-sm-6  paddingLeft0">
+            <div class="col-sm-12">
+              <span class="error" id="errorOtp"></span>
+              <span class="success" id="successOtp"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="col-sm-5 mLeft62 mTop-10 tColorBlue width38"><span id="loading"><i class="fa-li fa fa-spinner fa-spin fa-10x"></i></span></div>
+    </div>
+    <script src='min/js/jQuery.min.js'></script>
+    <script src="js/jquery.modal.js"></script>
+    <script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
+    <script src="js/service.js"></script>
+    <script src="js/otp.js"></script>
+  </body>
+</html>
