@@ -13,6 +13,8 @@ module.exports = function(app) {
   app.post('/register', user.register);
   
   app.post('/forgetEmail', user.forgetEmail);
+  
+  app.get('/otp', user.otp);
 
   app.get('/logout', user.logout);
 

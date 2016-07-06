@@ -181,11 +181,11 @@ function validateForgetEmail (formName)
     postData('/forgetEmail', headers, body, data => {
     	console.log("check here",data);
     	if (data === 'NO') {
-     		$('errorForgetEmail').text("Submit again");
+     		$('#errorForgetEmail').text("Submit again");
 		  } else if (data === 'YES') {
        
          // $(errorMsgId).text('Email already registered');
-        	 $('successForgetEmail').text("Login details sent on your email-id");
+        	 $('#successForgetEmail').text("Login details sent on your email-id");
 		  }
     }, error => {
       	console.log(error.responseText);   	
@@ -194,7 +194,6 @@ function validateForgetEmail (formName)
 	else {
 		return false;
 	}
-	console.log("asfaf");
 }
 
 function validateLogin (formId){

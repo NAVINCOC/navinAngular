@@ -7,7 +7,12 @@ module.exports = {
   	sess=req.session;
   	console.log("sess",sess);
   	if(sess.email) {
-  		 res.render('index');
+  		if(sess.isValidated !== 1) {
+			res.redirect('/otp');
+		}
+  		else {
+			res.render('index');
+		} 
 	}
 	else {
 		res.redirect('/login');
@@ -39,7 +44,9 @@ module.exports = {
     
     request(options, function(err, response, body) {
         if (err) { console.log('error'.error, err)}
-        else if(JSON.parse(body).length > 0) {
+        else if(response.statusCode !== 200){
+				res.redirect('/error');
+		} else if(JSON.parse(body).length > 0) {
         	console.log(body);
         		
     			console.log("login verify response:",body);
@@ -76,7 +83,9 @@ module.exports = {
     request(options, function(err, response, body) {
         if (err) {console.log('error    '.error, err);
           res.status(400).send(err);
-        } else {
+        } else if(response.statusCode !== 200){
+				res.redirect('/error');
+		} else {
         	console.log("api resp:",body);
         	res.status(200).send(body);
         }
@@ -136,11 +145,29 @@ module.exports = {
     request(options, function(err, response, body) {
         if (err) {console.log('error    '.error, err);
           res.status(400).send(err);
-        } else {
+        } else if(response.statusCode !== 200){
+				res.redirect('/error');
+		} else {
         	console.log("forget api resp:",body);
         	res.status(200).send(body);
         }
     });
+  },
+ otp: function(req, res) {
+  	sess=req.session;
+  	console.log("otp sess",sess);
+  	if(sess.email) {
+  		if(sess.isValidated === 1) {
+			res.redirect('/index');
+		}
+  		else {
+			res.render('otp');
+		} 
+	}
+	else {
+		res.redirect('/error');
+	}
+   
   },
   logout: function(req,res) {
 	  req.session.destroy(function(err) {
