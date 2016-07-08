@@ -133,6 +133,12 @@ a:focus, a:hover {
   height: 200px;
 }
 
+input[type='email'] {
+  border: 1px solid #CCC !important;
+  color: #555;
+  height: 30px;
+}
+
 input[type="text"] {
   border: 1px solid #CCC !important;
   color: #555;

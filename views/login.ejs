@@ -26,7 +26,7 @@
             <div class="col-sm-12">
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-                <input id="loginEmail" type="text" name="loginEmail" class="form-control " onfocusout="emailValidate('#loginEmail', 'loginForm')" value="<%=email%>"/>
+                <input id="loginEmail" type="email" name="loginEmail" class="form-control " onfocusout="emailValidate('#loginEmail', 'loginForm')" value="<%=email%>"/>
               </div>
             </div>
             <div class="col-sm-12">
@@ -87,7 +87,7 @@
                 <div class="col-sm-12">
                   <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-                    <input type="text" class="form-control" id="registerEmail" name="registerEmail"  onfocusout="emailValidate('#registerEmail', 'registerForm')" />
+                    <input type="email" class="form-control" id="registerEmail" name="registerEmail"  onfocusout="emailValidate('#registerEmail', 'registerForm')" />
                   </div>
                 </div>
                 <div class="col-sm-12"><span class="error" id="errorEmailR"></span></div>
@@ -346,7 +346,7 @@
             <div class="col-sm-12">
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-                <input type="text" class="form-control " id="modalEmailLogin" name="loginEmail" onfocusout="emailValidate('#modalEmailLogin', 'modalLoginForm');" />
+                <input type="email" class="form-control " id="modalEmailLogin" name="loginEmail" onfocusout="emailValidate('#modalEmailLogin', 'modalLoginForm');" />
               </div>
             </div>
             <div class="col-sm-12">
@@ -395,7 +395,7 @@
           <div class="col-sm-12">
             <div class="input-group">
               <div class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></div> 
-              <input type="text" class="form-control " id="forgetEmail" name="forgetEmail" onfocusout="emailValidate('#forgetEmail', 'modalForgetEmail')"/>
+              <input type="email" class="form-control " id="forgetEmail" name="forgetEmail" onfocusout="emailValidate('#forgetEmail', 'modalForgetEmail')"/>
             </div>
           </div>
           <div class="col-sm-12"><span class="error" id="errorForgetEmail"></span><span class="success" id="successForgetEmail"></span></div>

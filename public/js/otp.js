@@ -75,8 +75,8 @@ let validateOtp = (otpId) => {
 }
 
 let resendOtp = () => {
-	$('#errorOtp').text('');
-	$('#successOtp').text('');
+  $('#errorOtp').text('');
+  $('#successOtp').text('');
   $('#otp').attr('disabled', true);
   $('#otpVerifyBtn').attr('disabled', true);
   $('#loading').show();
@@ -92,7 +92,7 @@ let resendOtp = () => {
   //getData('/data', headers, success, error);
 
   getData('/resendOtp', headers, data => {
-  	$('#otp').removeAttr('disabled');
+    $('#otp').removeAttr('disabled');
     $('#otpVerifyBtn').removeAttr('disabled');
     $('#loading').hide();
     $('#successOtp').text("OTP Send Successfully");
