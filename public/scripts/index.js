@@ -182,6 +182,7 @@ module.exports = {
           res.status(400).send('Invalid OTP');
         }
         else if (body === 'YES') {
+          sess = req.session;
           sess.isValidated = 1;
           res.status(200).send('YES');
         }

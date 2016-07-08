@@ -318,7 +318,7 @@
                 <input type="button" class="btn btn-primary form-control" id="registerBtn" name="registerNow" value="Register Now" onclick="validateRegidter()" />
               </div>
               <div class="col-sm-3">
-                <input type="button" class="btn btn-warning form-control" value="Cancel" onclick="closeModal('#registerModalClose');">
+                <input type="button" class="btn btn-warning form-control" value="Cancel" onclick="closeModal('#registerModalClose'); resetErrors (); resetSignUp ();">
                 <span class="hide"><a id="registerModalClose" href="#" rel="modal:close" >Cancel</a></span>
               </div>
               <div class="col-sm-12 height11"></div>
@@ -369,7 +369,7 @@
               <input type="button" class="btn btn-primary form-control" id="modalLoginBtn" name="Login" value="Login" onclick="validateLogin('#modalLoginForm');" />
             </div>
             <div class="col-sm-5">
-              <input type="button" class="btn btn-warning form-control" value="Cancel" onclick="closeModal('#inputModalClose');">
+              <input type="button" class="btn btn-warning form-control" value="Cancel" onclick="closeModal('#inputModalClose'); resetErrors (); resetSignUp ();">
               <span class="hide"><a id="inputModalClose" rel="modal:close" href="#">Cancel</a></span>
             </div>
           </div>
@@ -406,7 +406,7 @@
             <input type="button" class="btn btn-primary form-control" id="frogetBtn" name="Submit" value="Mail Me" onclick="validateForgetEmail('modalForgetEmail');"/>
           </div>
           <div class="col-sm-5">
-            <input type="button" class="btn btn-warning form-control" value="Cancel" onclick="closeModal('#forgetModalClose');">
+            <input type="button" class="btn btn-warning form-control" value="Cancel" onclick="closeModal('#forgetModalClose'); resetErrors (); resetSignUp ();">
             <span class="hide"><a id="forgetModalClose" rel="modal:close" href="#">Cancel</a></span>
           </div>
         </div>
@@ -418,6 +418,7 @@
     <script src="js/jquery.modal.js"></script>
     <script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
     <script src="js/service.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/login.js"></script>
   </body>
 </html>

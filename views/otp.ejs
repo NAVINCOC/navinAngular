@@ -18,7 +18,7 @@
       <div class="col-sm-6">        
         <h2>Polestar Solutions</h2>
       </div>
-      <div class="col-sm-3 col-sm-offset-3"><span class="cursorPointer">LogOut</span></div>
+      <div class="col-sm-1 col-sm-offset-5"><span><a href="#logoutConfirm" rel="modal:open" class="tColorBlue cursorPointer"><i class="fa fa-power-off" aria-hidden="true"></i> LogOut</a></span></div>
       <div class="col-sm-12"></div>
       
       <!-- otp form -->
@@ -32,8 +32,9 @@
                 <input id="otp" type="text" name="otp" class="form-control " maxlength="6" />
               </div>
             </div>
+            <div class="col-sm-12 height11"></div>
             <div class="col-sm-12">
-              <span class="cursorPointer" onclick="resendOtp();">Resend OTP</span>
+              <span class="cursorPointer tColorBlue" onclick="resendOtp();">Resend OTP</span>
             </div>
           </div>
           <div class="col-sm-12 height11"></div>
@@ -53,10 +54,38 @@
       </form>
       <div class="col-sm-5 mLeft62 mTop-10 tColorBlue width38"><span id="loading"><i class="fa-li fa fa-spinner fa-spin fa-10x"></i></span></div>
     </div>
+
+    <!-- Forget modal  -->
+    <div id="logoutConfirm" style="display: none;">
+      <div class="col-sm-12 tAlignCenter bColorCCC lineHeight41 font">
+        <span>Confirm Logout</span>
+      </div>
+      <div class="col-sm-12">
+       <form name="modalForgetEmail" id="modalForgetEmail" method="get" action="logout">
+        <div class="col-sm-12 height25"></div>
+        <div class="col-sm-12 font">
+          <div class="col-sm-12"><span>Are you sure you want to logout...</span></div>
+          <div class="col-sm-12"><span>You are just a step away from getting in.</span></div>
+        </div>
+        <div class="col-sm-12 height20"></div>
+        <div class="col-sm-12 font">
+          <div class="col-sm-5 col-sm-offset-1">
+            <input type="submit" class="btn btn-primary form-control" id="frogetBtn" name="Submit" value="LogOut" />
+          </div>
+          <div class="col-sm-5">
+            <input type="button" class="btn btn-warning form-control" value="Cancel" onclick="closeModal('#logoutModalClose');">
+            <span class="hide"><a id="logoutModalClose" rel="modal:close" href="#">Cancel</a></span>
+          </div>
+        </div>
+        <div class="col-sm-12 height25"></div>
+        </form>
+      </div>
+    </div>
     <script src='min/js/jQuery.min.js'></script>
     <script src="js/jquery.modal.js"></script>
     <script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
     <script src="js/service.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/otp.js"></script>
   </body>
 </html>
