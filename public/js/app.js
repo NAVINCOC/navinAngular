@@ -14,6 +14,7 @@ var app = angular.module('dashboard', [
 
 app.run(($rootScope, $state) => {
   $rootScope.state = 0;
+  document.getElementById("leftBar").style.minHeight = (screen.height - 155) + "px";
 
   $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, options) => {
     //$rootScope.currentStateName = toState.name;
