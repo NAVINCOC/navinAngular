@@ -170,10 +170,24 @@ app.controller('appBody', [
 
         postData('/review', headers, data, result => {
           console.log(result);
+          $scope.resetReview();
         }, error => {
           console.log(error);
         });
       }
     }
+
+    $scope.resetReview = () => {
+      $scope.v1.reviewedName = '';
+      $scope.v1.reviewedEmail ='';
+      $scope.v1.reviewedAlternateEmail ='';
+      $scope.v1.reviewedPhone ='';
+      $scope.v1.reviewedAlternateNumber ='';
+      $scope.v1.reviewedPrimarySkills = '';
+      $scope.v1.reviewedSecondarySkills = '';
+      $scope.v1.reviewedYear = '';
+      $scope.v1.reviewedMonth = '';
+      $('#header').click();
+	}
   }
 ]);
