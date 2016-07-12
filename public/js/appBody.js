@@ -18,7 +18,7 @@ app.controller('appBody', [
       reviewedAlternateNumber: '',
       reviewedPrimarySkills: '',
       reviewedAlternateEmail: '',
-      reviewedSecontrarySkills: ''
+      reviewedSecontarySkills: ''
     };
 
     $scope.success = (data) => {
@@ -161,7 +161,7 @@ app.controller('appBody', [
           reviewedPhone: $scope.v1.reviewedPhone,
           reviewedAlternateNumber: $scope.v1.reviewedAlternateNumber,
           reviewedPrimarySkills: $scope.v1.reviewedPrimarySkills,
-          reviewedSecontrarySkills: $scope.v1.reviewedSecontrarySkills,
+          reviewedSecontarySkills: $scope.v1.reviewedSecontarySkills,
           reviewedYear: $scope.v1.reviewedYear,
           reviewedMonth: $scope.v1.reviewedMonth
         };
