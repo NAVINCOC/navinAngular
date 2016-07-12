@@ -284,7 +284,7 @@ module.exports = {
         console.log('review',req.body);
         request(options, function(err, response, body) {
           if (err) {
-            console.log('error    '.error, err);
+            console.log('error'.error, err);
             res.status(404).send(err);
           } else if (response.statusCode !== 200) {
             res.status(400).send('Server down try after sometime');
