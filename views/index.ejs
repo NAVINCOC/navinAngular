@@ -7,18 +7,179 @@
     <link rel="stylesheet" type="text/css" href="/min/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="min/css/ngCropper.all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/customStyle.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.modal.css" />
     <link rel="icon" href="logo.jpg" />
     <title>Welcome</title>
   </head>
   <body ng-app="dashboard">
-    <header ng-controller="appHeader" id="header" class="header" ng-click="change();">{{header}}</header>
-    <aside ng-controller="appLeftbar" id="leftBar" class="leftBar col-sm-3"><i class="fa fa-anchor"></i>Manage User</aside>
-    <div ng-controller="appBody" id="body" class="body col-sm-7">
-        <i class="fa fa-hand-o-up"></i>this
+    <header ng-controller="appHeader" id="header" class="header font" ng-click="change();">
+      <div class="col-sm-12 height11"></div>
+      <div class="col-sm-10"><span><strong ng-bind="name">{{ name | uppercase }}</strong></span></div>
+      <div class="col-sm-2">
+        <span><strong ng-bind="email">{{ email }}</strong></span>
+        <span> | </span>
+        <span><a href="#logoutConfirm" rel="modal:open" class="tColorBlue cursorPointer"><i class="fa fa-power-off" aria-hidden="true"></i> LogOut</a></span>
+      </div>
+    </header>
+    <div ng-controller="appBody" id="body" class="col-sm-12 paddingLeft0 paddingRight0 font">
+      <div id="leftBar" class="leftBar col-sm-2 font">
+        <p class="col-sm-12" ng-click="changeState(0);">
+          <span><i class="fa fa-hand-o-up"></i> Add Review</span>
+        </p>
+        <p class="col-sm-12" ng-click="changeState(1);">
+          <span><i class="fa fa-hand-o-up"></i> Show Review</span>
+        </p>
+      </div>
+      <div ng-if="state == '0'" class="col-sm-10 font">
+        <div class="col-sm-12"><i class="fa fa-hand-o-up"></i>this
         <div ng-bind="data"></div>
-        <input type="button" ng-click="click();" name="" value="CLICK">
+        <input type="button" ng-click="click();" name="" value="CLICK"></div>
+        <div class="col-sm-4">
+          <div class="col-sm-12"><span>Name</span></div>
+          <div class="col-sm-12">
+            <input class="form-control" type="text" ng-model="v1.reviewedName" maxlength="25">
+          </div>
+          <div class="col-sm-12"><span class="error" ng-bind="errorReviewedName">{{ errorReviewedName }}</span></div>
+          <div class="col-sm-12 height11"></div>
+          <div class="col-sm-12"><span>Phone Number</span></div>
+          <div class="col-sm-12">
+            <input class="form-control" type="text" ng-model="v1.reviewedPhone" maxlength="10">
+          </div>
+          <div class="col-sm-12"><span class="error" ng-bind="errorReviewedPhone">{{ errorReviewedPhone }}</span></div>
+          <div class="col-sm-12 height11"></div>
+          <div class="col-sm-12"><span>Experionce</span></div>
+          <div class="col-sm-6 paddingRight0">
+            <select class="form-control" ng-model="v1.reviewedYear">
+              <option value="">YEAR</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+          <div class="col-sm-6 paddingLeft0">
+            <select class="form-control" ng-model="v1.reviewedMonth">
+              <option value="">Month</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="col-sm-12"><span>Email</span></div>
+          <div class="col-sm-12">
+            <input class="form-control" type="text" ng-model="v1.reviewedEmail" maxlength="100">
+          </div>
+          <div class="col-sm-12"><span class="error" ng-bind="errorReviewedEmail">{{ errorReviewedEmail }}</span></div>
+          <div class="col-sm-12 height11"></div>
+          <div class="col-sm-12"><span>Alternate Number</span></div>
+          <div class="col-sm-12">
+            <input class="form-control" type="text" ng-model="v1.reviewedAlternateNumber" maxlength="10">
+          </div>
+          <div class="col-sm-12"><span class="error" ng-bind="errorReviewedAlternate"></span></div>
+          <div class="col-sm-12 height11"></div>
+          <div class="col-sm-12"><span>Primary Skills</span></div>
+          <div class="col-sm-12">
+            <select class="form-control" ng-model="v1.reviewedPrimarySkills">
+              <option value="">--select--</option>
+              <option value="NODE">NODEJS</option>
+              <option value="ANGULAR">ANGULAR</option>
+              <option value="JAVA">JAVA</option>
+              <option value="REACT">REACT</option>
+              <option value="JSP">JSP</option>
+            </select>
+          </div>
+          <div class="col-sm-12"><span class="error" ng-bind="errorReviewedPrimarySkills">{{ errorReviewedPrimarySkills }}</span></div>
+        </div>
+        <div class="col-sm-4">
+          <div class="col-sm-12"><span>Alternate Email</span></div>
+          <div class="col-sm-12">
+            <input class="form-control" type="text" ng-model="v1.reviewedAlternateEmail" maxlength="100">
+          </div>
+          <div class="col-sm-12"><span class="error" ng-bind="errorReviewedAlternateEmail">{{ errorReviewedAlternateEmail }}</span></div>
+          <div class="col-sm-12 height11"></div>
+          <div class="col-sm-12"><span>Secondary Skills</span></div>
+          <div class="col-sm-12">
+            <select class="form-control" ng-model="v1.reviewedSecontrarySkills" multiple>
+              <option value="NODE">NODEJS</option>
+              <option value="ANGULAR">ANGULAR</option>
+              <option value="JAVA">JAVA</option>
+              <option value="REACT">REACT</option>
+              <option value="JSP">JSP</option>
+              <option value="HTML">HTML</option>
+              <option value="CSS">CSS</option>
+              <option value="JAVASCRIPT">JAVASCRIPT</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-12 height25"></div>
+        <div class="col-sm-12" ng-repeat="record in records" ng-if="records.length > 0 && record.isActive == 1">
+          <div class="col-sm-12"><span>{{ record.questionDesc }} <sup ng-if="record.isMandatory == 1" class="error">*</sup></span></div>
+          <input type="hidden" id="ans{{ record.id }}">
+          <input type="hidden" id="isMan{{ record.id }}" value="{{ record.isMandatory }}">
+          <div class="col-sm-12" ng-if='record.answerType === "radio"'>
+            <div class="col-sm-2 paddingLeft0">
+              <div class="checkBox">
+                <span id="radio1Yes{{ record.id }}" style="display: none;"><i class="fa fa-check-circle-o" aria-hidden="true"></i></span>
+                <span id="radio1No{{ record.id }}" ng-click="showHideRadio('#radio1Yes'+record.id , '#radio2No'+record.id, '#radio1No'+record.id, '#radio2Yes'+record.id, '#ans'+record.id, record.options[0]);"><i class="fa fa-circle-o" aria-hidden="true"></i></span>
+              </div>
+              <span> {{ record.options[0] }} </span>
+            </div>
+            <div class="col-sm-2 paddingLeft0 paddingRight0">
+              <div class="checkBox">
+                <span id="radio2Yes{{ record.id }}" style="display: none;"><i class="fa fa-check-circle-o" aria-hidden="true"></i></span>
+                <span id="radio2No{{ record.id }}" ng-click="showHideRadio('#radio1No'+record.id, '#radio2Yes'+record.id, '#radio1Yes'+record.id, '#radio2No'+record.id, '#ans'+record.id, record.options[1]);"><i class="fa fa-circle-o" aria-hidden="true"></i></span>
+              </div>
+              <span> {{ record.options[1] }} </span>
+            </div>
+          </div>
+          <div class="col-sm-12 height11"></div>
+          <div class="col-sm-12">
+            <span class="error" id="error{{record.id}}" ng-if="record.isMandatory == 1"></span>
+          </div>
+          <div class="col-sm-12 height11"></div>
+        </div>
+        <div class="col-sm-12 height11"></div>
+        <div class="col-sm-12">
+          <div class="col-sm-3 col-sm-offset-3 tAlignCenter">
+            <input type="button" value="Submit Review" class="form-control btn btn-primary" ng-click="review();">
+          </div>
+          <div class="col-sm-3 tAlignCenter">
+            <input type="button" value="Cancel Review" class="form-control btn btn-warning" ng-click="cancelReview();">
+          </div>
+        </div>
+        </form>
+      </div>
+      <footer id="footer" class="footer col-sm-12 paddingLeft0 paddingRight0">Loading...</footer>
     </div>
-    <footer id="footer" class="footer">Loading...</footer>
+
+    <!-- Logout modal  -->
+    <div id="logoutConfirm" style="display: none;">
+      <div class="col-sm-12 tAlignCenter bColorCCC lineHeight41 font">
+        <span>Confirm Logout</span>
+      </div>
+      <div class="col-sm-12">
+       <form name="modalForgetEmail" id="modalForgetEmail" method="get" action="logout">
+        <div class="col-sm-12 height25"></div>
+        <div class="col-sm-12 font">
+          <div class="col-sm-12"><span>Are you sure you want to logout...</span></div>
+          <div class="col-sm-12"><span>You are just a step away from getting in.</span></div>
+        </div>
+        <div class="col-sm-12 height20"></div>
+        <div class="col-sm-12 font">
+          <div class="col-sm-5 col-sm-offset-1">
+            <input type="submit" class="btn btn-primary form-control" id="frogetBtn" name="Submit" value="LogOut" />
+          </div>
+          <div class="col-sm-5">
+            <input type="button" class="btn btn-warning form-control" value="Cancel" onclick="closeModal('#logoutModalClose');">
+            <span class="hide"><a id="logoutModalClose" rel="modal:close" href="#">Cancel</a></span>
+          </div>
+        </div>
+        <div class="col-sm-12 height25"></div>
+      </div>
+    </div>
     <script type="text/javascript" src="/min/js/app.min.js"></script>
     <!-- *app.min.js contains all these files -->
     <!-- 
@@ -34,8 +195,9 @@
     <script type="text/javascript" src="min/js/ngCropper.all.min.js"></script>
     <!-- to autocomplete text like google options for searching -->
     <script type="text/javascript" src="min/js/autocomplete.min.js"></script>
+    <script src="js/jquery.modal.js"></script>
     <script type="text/javascript" src="js/service.js"></script>
-    <script src="js/common.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/appHeader.js"></script>
     <script type="text/javascript" src="js/appLeftbar.js"></script>

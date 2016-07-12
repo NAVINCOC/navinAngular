@@ -1,3 +1,5 @@
+'use strict';
+
 /*all the ajax/ api calls will be here*/
 //Make sure jQuery has been loaded before service.js
 if (typeof jQuery === "undefined") {

@@ -1,3 +1,5 @@
+'use strict';
+
 //Make sure jQuery has been loaded before login.js
 if (typeof jQuery === "undefined") {
   throw new Error("service requires jQuery");
@@ -137,11 +139,6 @@ let confirmpassword = (password, confirmpassword) => {
     return false;
   }
 }
-
-let validateEmail = (email) => {
-  let expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-  return expr.test(email);
-};
 
 let validateForgetEmail = (formName) => {
   $('#frogetBtn').attr('disabled', true);
@@ -301,9 +298,24 @@ let validateRegidter = () => {
     } else if (pincode.length < 6) {
       $('#registerBtn').removeAttr('disabled');
       $('#errorPincode').text('Enter valid Pincode');
+    } else if (pincode.length > 6) {
+      $('#registerBtn').removeAttr('disabled');
+      $('#errorPincode').text('Enter valid Pincode');
+    } else if (!pincode.match(/^[0-9]+$/)) {
+      $('#registerBtn').removeAttr('disabled');
+      $('#errorPincode').text('Enter valid Pincode');
     } else if (contactno === '') {
       $('#registerBtn').removeAttr('disabled');
       $('#errorContact').text('Please Enter Contact No.');
+    } else if (contactno.length < 10) {
+      $('#registerBtn').removeAttr('disabled');
+      $('#errorContact').text('Enter 10 digit Contact No.');
+    } else if (contactno.length > 10) {
+      $('#registerBtn').removeAttr('disabled');
+      $('#errorContact').text('Enter 10 digit Contact No.');
+    } else if (!contactno.match(/^[0-9]+$/)) {
+      $('#registerBtn').removeAttr('disabled');
+      $('#errorContact').text('Only Numbers');
     } else if (contactperson === '') {
       $('#registerBtn').removeAttr('disabled');
       $('#errorContactPerson').text('Please Enter Contact Person Name');
@@ -347,13 +359,4 @@ let resetSignUp = () => {
   $('#industryType').val('1');
   $('#company').val('');
   showHideRadio('#companyType1Yes', '#companyType2No', '#companyType1No', '#companyType2Yes', '#companyType', 'COMPANY');
-}
-
-/* function is used to show 2 icon and hide rest 2. function will also insert value in object */
-let showHideRadio = (show1, show2, hide1, hide2, object, value) => {
-  $(show1).show();
-  $(show2).show();
-  $(hide1).hide();
-  $(hide2).hide();
-  $(object).val(value);
 }

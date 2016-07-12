@@ -22,5 +22,11 @@ module.exports = function(app) {
 
   app.get('/logout', user.logout);
 
+  app.get('/getSession', user.getSession);
+
+  app.get('/getQuestion', user.getQuestion);
+
+  app.post('/review', user.review);
+
   app.get('/error', error);
 };

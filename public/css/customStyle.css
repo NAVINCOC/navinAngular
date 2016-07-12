@@ -65,7 +65,6 @@ a:focus, a:hover {
 
 .error {
   color: #ff0000;
-  margin-right: 10px;
 }
 
 .fa{
@@ -89,20 +88,18 @@ a:focus, a:hover {
     -moz-transition: -moz-transform .3s ease-in-out,margin .3s ease-in-out;
     -o-transition: -o-transform .3s ease-in-out,margin .3s ease-in-out;
     transition: transform .3s ease-in-out,margin .3s ease-in-out;
-    margin-left: 230px;
-    z-index: 820;
     bottom: 0px;
     position:fixed;
     height: 51px;
 }
 
 .header {
-    position: relative;
-    max-height: 100px;
-    z-index: 1030;
-    min-height: 51px;
-    background-color: #c1c1c1;
-    color: #eee;
+  position: relative;
+  max-height: 100px;
+  min-height: 51px;
+  background-color: #c1c1c1;
+  color: #eee;
+  width: 100%;
 }
 
 .heightAuto {
@@ -183,11 +180,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 .leftBar {
     background-color: #eee;
     color: #555;
-    position: absolute;
     left: 0;
-    min-height: 100%;
-    width: 230px;
-    z-index: 810;
+    min-height: 700px;
     -webkit-transition: -webkit-transform .3s ease-in-out,width .3s ease-in-out;
     -moz-transition: -moz-transform .3s ease-in-out,width .3s ease-in-out;
     -o-transition: -o-transform .3s ease-in-out,width .3s ease-in-out;
@@ -254,16 +248,24 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   position: fixed;
 }
 
-.paddingLeft0{
+.paddingLeft0 {
   padding-left: 0px;
 }
 
-.paddingRight0{
+.paddingRight0 {
   padding-right: 0px;
+}
+
+.positionFixed {
+  position: fixed;
 }
 
 select {
   height: 30px !important;
+}
+
+select[multiple] {
+  height: 103px !important;
 }
 
 .success {

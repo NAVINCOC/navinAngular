@@ -5,7 +5,6 @@ var sess;
 module.exports = {
   index: function (req, res) {
     sess = req.session;
-    console.log("sess", sess);
     if(sess.email) {
       console.log('WELLCOME '.debug + sess.email + ' to Review System'.debug)
       if(sess.isValidated !== 1) {
@@ -26,7 +25,6 @@ module.exports = {
     }
   },
   confmLogin: function (req, res) {
-    console.log("check:",req.body);
     var data = req.body;
     var options = {
       url: 'http://127.0.0.1:2318/v1/login',
@@ -44,18 +42,15 @@ module.exports = {
       } else if (response.statusCode !== 200) {
         res.redirect('/error');
       } else if (JSON.parse(body).length > 0) {
-        console.log(body);
-        console.log("login verify response:",body);
+        console.log(req.headers['user-agent'].debug);
         body= JSON.parse(body);
-        console.log("sess-body",body);	
         sess= req.session;
         sess.email=body[0].emailId;
-        sess.name = body[0].firstName;
+        sess.name = body[0].name;
         sess.contact = body[0].contactNo;
         sess.id = body[0].id;
         sess.isValidated = body[0].isValidated;
         sess.isActive  = body[0].isActive;
-        console.log("sess2",sess);
         res.redirect('/');
       } else if (JSON.parse(body).length == 0) {
         res.render('login', {email: req.body.loginEmail, error: "Invalid password"});
@@ -109,7 +104,7 @@ module.exports = {
         console.log("sess-body ",body);	
         sess = req.session;
         sess.email = body[0].emailId;
-        sess.name = body[0].firstName;
+        sess.name = body[0].name;
         sess.contact = body[0].contactNo;
         sess.id = body[0].id;
         sess.isValidated = body[0].isValidated;
@@ -146,7 +141,7 @@ module.exports = {
     });
   },
   otp: function (req, res) {
-    sess=req.session;
+    sess = req.session;
 
     if (sess.email) {
       if (sess.isValidated === 1) {
@@ -190,7 +185,7 @@ module.exports = {
     });
   },
   resendOtp: function (req, res) {
-    sess=req.session;
+    sess = req.session;
 
     if (sess.email) {
       if (sess.isValidated === 1) {
@@ -226,6 +221,82 @@ module.exports = {
       } 
     } else {
       res.redirect('/login');
+    }
+  },
+  getSession: function (req, res) {
+    sess = req.session;
+    if (sess.email) {
+      if (sess.isValidated === 1) {
+        res.status(200).send(sess);
+      } else {
+        res.status(401).send('Unauthorised Access');  
+      }
+    } else {
+      res.status(401).send('Please LogIn');
+    }
+  },
+  getQuestion: function (req, res) {
+    sess = req.session;
+    if (sess.email) {
+      if (sess.isValidated === 1) {
+        var options = {
+          url: 'http://127.0.0.1:2318/v1/getQuestion',
+          method: 'GET',
+          headers: {
+            key: 'NAVNIV',
+            userid: '2318'
+          },
+          form: {
+            email: sess.email
+          }
+        };
+
+        request(options, function(err, response, body) {
+          if (err) {
+            console.log('error    '.error, err);
+            res.status(404).send(err);
+          } else if (response.statusCode !== 200) {
+            res.status(400).send('NO DATA');
+          } else {
+            res.status(200).send(body);
+          }
+        });
+      } else {
+        res.status(401).send('Unauthorised Access');  
+      }
+    } else {
+      res.status(401).send('Please LogIn');
+    }
+  },
+  review: function (req, res) {
+    sess = req.session;
+    if (sess.email) {
+      if (sess.isValidated === 1) {
+        var options = {
+          url: 'http://127.0.0.1:2318/v1/review',
+          method: 'POST',
+          headers: {
+            key: 'NAVNIV',
+            userid: '2318'
+          },
+          form: req.body
+        };
+        console.log('review',req.body);
+        request(options, function(err, response, body) {
+          if (err) {
+            console.log('error    '.error, err);
+            res.status(404).send(err);
+          } else if (response.statusCode !== 200) {
+            res.status(400).send('Server down try after sometime');
+          } else {
+            res.status(200).send(body);
+          }
+        });
+      } else {
+        res.status(401).send('Unauthorised Access');  
+      }
+    } else {
+      res.status(401).send('Please LogIn');
     }
   },
   logout: function (req, res) {

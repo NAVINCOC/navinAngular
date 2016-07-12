@@ -1,3 +1,5 @@
+'use strict';
+
 //Make sure jQuery has been loaded before common.js
 if (typeof jQuery === "undefined") {
   throw new Error("service requires jQuery");
@@ -19,4 +21,19 @@ $.modal.defaults = {
 
 let closeModal = (modalId) => {
   $(modalId).click();
+}
+
+/* this function take email and check for pattern */
+let validateEmail = (email) => {
+  let expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  return expr.test(email);
+};
+
+/* function is used to show 2 icon and hide rest 2. function will also insert value in object */
+let showHideRadio = (show1, show2, hide1, hide2, object, value) => {
+  $(show1).show();
+  $(show2).show();
+  $(hide1).hide();
+  $(hide2).hide();
+  $(object).val(value);
 }

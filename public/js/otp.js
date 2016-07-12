@@ -1,3 +1,5 @@
+'use strict';
+
 //Make sure jQuery has been loaded before otp.js
 if (typeof jQuery === "undefined") {
   throw new Error("service requires jQuery");
