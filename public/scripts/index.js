@@ -245,9 +245,6 @@ module.exports = {
           headers: {
             key: 'NAVNIV',
             userid: '2318'
-          },
-          form: {
-            email: sess.email
           }
         };
 
@@ -282,6 +279,36 @@ module.exports = {
           form: req.body
         };
         console.log('review',req.body);
+        request(options, function(err, response, body) {
+          if (err) {
+            console.log('error'.error, err);
+            res.status(404).send(err);
+          } else if (response.statusCode !== 200) {
+            res.status(400).send('Server down try after sometime');
+          } else {
+            res.status(200).send(body);
+          }
+        });
+      } else {
+        res.status(401).send('Unauthorised Access');  
+      }
+    } else {
+      res.status(401).send('Please LogIn');
+    }
+  },
+  getReview: function (req, res) {
+    sess = req.session;
+    if (sess.email) {
+      if (sess.isValidated === 1) {
+        var options = {
+          url: 'http://127.0.0.1:2318/v1/getReview',
+          method: 'GET',
+          headers: {
+            key: 'NAVNIV',
+            userid: '2318'
+          }
+        };
+
         request(options, function(err, response, body) {
           if (err) {
             console.log('error'.error, err);

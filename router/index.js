@@ -28,5 +28,7 @@ module.exports = function(app) {
 
   app.post('/review', user.review);
 
+  app.get('/getReview', user.getReview);
+
   app.get('/error', error);
 };
