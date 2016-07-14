@@ -326,6 +326,10 @@ module.exports = {
       res.status(401).send('Please LogIn');
     }
   },
+  getExample: function (req, res) {
+    console.log(req.query);
+    res.status(200).send(req.query);
+  },
   logout: function (req, res) {
     req.session.destroy( function (err) {
       if(err) {

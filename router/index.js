@@ -30,5 +30,7 @@ module.exports = function(app) {
 
   app.get('/getReview', user.getReview);
 
+  app.get('/getExample', user.getExample);
+
   app.get('/error', error);
 };
