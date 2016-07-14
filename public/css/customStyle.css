@@ -259,6 +259,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   padding-right: 0px;
 }
 
+.paddingRight5 {
+	padding-right: 5px;
+}
+
 .paddingLeft30 {
 	padding-left: 20%;
 }
