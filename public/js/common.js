@@ -37,3 +37,28 @@ let showHideRadio = (show1, show2, hide1, hide2, object, value) => {
   $(hide2).hide();
   $(object).val(value);
 }
+
+$("#dropdownMenu").hover(function(){
+    $("#dropdownMenuLi").addClass("open");
+});
+$("#dropdownMenuLi").mouseout(function(){
+    $("#dropdownMenuLi").removeClass("open");
+});
+setTimeout(function(){
+	$(".delayClass").removeClass('hide');
+},100);
+
+    $(function(){
+    $(".dropdown").hover(            
+            function() {
+                $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+                $(this).toggleClass('open');
+                $('b', this).toggleClass("caret caret-up");                
+            },
+            function() {
+                $('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+                $(this).toggleClass('open');
+                $('b', this).toggleClass("caret caret-up");                
+            });
+    });
+    
