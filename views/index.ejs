@@ -8,18 +8,29 @@
     <link rel="stylesheet" type="text/css" href="min/css/ngCropper.all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/customStyle.css" />
     <link rel="stylesheet" type="text/css" href="/css/jquery.modal.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="icon" href="logo.jpg" />
     <title>Welcome</title>
   </head>
   <body ng-app="dashboard">
     <header ng-controller="appHeader" id="header" class="header font" ng-click="change();">
-      <div class="col-sm-12 height11"></div>
-      <div class="col-sm-9"><span><strong>{{ name | uppercase }}</strong></span></div>
-      <div class="col-sm-2 tAlignRight">
-        <span><strong ng-bind="email" >{{ email }}</strong></span>
+      <div class="col-sm-12"></div>
+      <div class="col-sm-9"></div>
+      <div class="col-sm-1 tAlignRight paddingRight0">
+          <!--<span><strong>{{ name | uppercase }}</strong></span>-->
       </div>
-        <div class="col-sm-1">
-        <span><a href="#logoutConfirm" rel="modal:open" class="tColorBlue cursorPointer"><i class="fa fa-power-off" aria-hidden="true"></i> LogOut</a></span>
+      <div class="col-sm-2 delayClass hide" style="float: right;">
+        <ul class="nav navbar-nav paddingLeft30">
+      	    <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong>{{ name | uppercase }}</strong> <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+            <li><a href="#">Change Password</a></li>
+            <li class="divider"></li>
+            <li><a href="#logoutConfirm" title="Logout" rel="modal:open" class="tColorRed cursorPointer">LogOut</a></li>
+            </li>
+        </ul>
+             
       </div>
     </header>
     <div ng-controller="appBody" id="body" class="col-sm-12 paddingLeft0 paddingRight0 font">
